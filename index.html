@@ -1,1 +1,61 @@
-<title>인프런 광고 소재 허브</title><body><h1>준비 중</h1></body>
+<title>인프런 광고 허브</title>
+<style>
+:root{
+  --bg:#F4F1E8; --surface:#FFFFFF; --ink:#20232E; --ink-soft:#5C5F6C; --ink-faint:#8A8D97;
+  --border:#E1DCCC; --accent:#2A5FD9;
+  --shadow: 0 1px 2px rgba(32,35,46,.06), 0 8px 24px -12px rgba(32,35,46,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15171C; --surface:#1D2027; --ink:#EBE9E2; --ink-soft:#A6A9B3; --ink-faint:#71747D;
+    --border:#2C2F38; --accent:#7098FF;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -16px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15171C; --surface:#1D2027; --ink:#EBE9E2; --ink-soft:#A6A9B3; --ink-faint:#71747D;
+  --border:#2C2F38; --accent:#7098FF;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px -16px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;}
+.wrap{max-width:840px;margin:0 auto;padding:64px 24px 96px;}
+.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+h1{font-size:30px;margin:6px 0 10px;font-weight:800;letter-spacing:-.01em;}
+p.sub{font-size:15px;color:var(--ink-soft);line-height:1.6;max-width:60ch;margin:0 0 40px;}
+.list{display:flex;flex-direction:column;gap:14px;}
+.card{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--surface);
+  border:1px solid var(--border);border-radius:14px;padding:20px 22px;text-decoration:none;color:var(--ink);
+  box-shadow:var(--shadow);}
+.card:hover{border-color:var(--accent);}
+.card .t{font-size:15.5px;font-weight:700;margin:0 0 4px;}
+.card .d{font-size:13px;color:var(--ink-soft);margin:0;}
+.card .arrow{font-size:18px;color:var(--accent);flex-shrink:0;}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+.badge.live{background:#E4F3E8;color:#1E7A3D;}
+.badge.paused{background:#FBF0D9;color:#8A6414;}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .badge.live{background:#173824;color:#5FD48A;}
+  :root:not([data-theme="light"]) .badge.paused{background:#3A3016;color:#E8C468;}
+}
+:root[data-theme="dark"] .badge.live{background:#173824;color:#5FD48A;}
+:root[data-theme="dark"] .badge.paused{background:#3A3016;color:#E8C468;}
+footer{margin-top:48px;font-size:12.5px;color:var(--ink-faint);line-height:1.7;border-top:1px solid var(--border);padding-top:20px;}
+</style>
+<div class="wrap">
+  <span class="eyebrow">ORM · 인프런</span>
+  <h1>인프런 Meta 광고 허브</h1>
+  <p class="sub">인프런 캠페인(단테랩스·김형태)의 소재 세팅안과 성과 리포트를 모아두는 곳입니다. 새 배치가 생길 때마다 아래 목록에 추가됩니다.</p>
+  <div class="list">
+    <a class="card" href="3-2cha/">
+      <div><p class="t">3-2차 세팅안 <span class="badge paused">PAUSED</span></p><p class="d">2026-08-13 — 신규 광고세트 6개, 검수 완료 · 라이브 전환 대기</p></div>
+      <span class="arrow">→</span>
+    </a>
+    <a class="card" href="3-1cha/">
+      <div><p class="t">3-1차 세팅안 <span class="badge live">LIVE</span></p><p class="d">2026-07-31~ 운영 중 — 라이브 소재 6건 스냅샷</p></div>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+  <footer>이 페이지는 ORM(오름아이엠씨)이 인프런 광고 운영을 위해 관리하는 내부 참고용 페이지입니다.</footer>
+</div>

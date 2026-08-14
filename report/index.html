@@ -17,11 +17,11 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .scorecard-group { margin: 18px 0; }
 .scorecard-label { font-size: 12px; font-weight: 700; color: #8a93a3; margin: 10px 0 6px; text-transform: uppercase; letter-spacing: .03em; }
 .scorecard-label:first-child { margin-top: 0; }
-.scorecard { display: flex; flex-wrap: nowrap; gap: 8px; margin: 0; overflow-x: auto; }
-.score-cell { flex: 1 1 100px; min-width: 92px; padding: 10px 10px; text-align: center; background: #f1f5fb; border: 1px solid #dbe4f0; border-radius: 10px; }
-.score-cell-mp { background: #fdf3ea; border-color: #f0ddc8; }
+.scorecard { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+.score-cell { flex: 1 1 100px; min-width: 92px; min-height: 64px; padding: 10px 10px; text-align: center; background: #f1f5fb; border: 1px solid #dbe4f0; border-radius: 10px; display: flex; flex-direction: column; justify-content: center; }
+.score-cell-mp { background: #eaf7ee; border-color: #cbe6d2; }
 .score-label { font-size: 11.5px; color: #5b6b82; margin-bottom: 4px; font-weight: 700; }
-.score-value { font-size: 14px; font-weight: 800; color: #0f172a; word-break: keep-all; overflow-wrap: break-word; }
+.score-value { font-size: 13px; font-weight: 800; color: #0f172a; line-height: 1.25; word-break: keep-all; overflow-wrap: break-word; }
 .col-mp-first { border-left: 2px solid #e8ceac !important; }
 th.col-mp-first-th { border-left: 2px solid #e8ceac !important; }
 .date-range-bar, .filter-bar, .region-filter-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }

@@ -36,6 +36,7 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .ov-legend { display: flex; gap: 14px; margin-top: 6px; }
 .ov-legend-item { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: #5b6b82; }
 .ov-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.ov-tooltip { position: fixed; display: none; background: #1a1a1a; color: #fff; font-size: 11.5px; line-height: 1.5; padding: 6px 9px; border-radius: 6px; pointer-events: none; z-index: 1000; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
 .report-header { margin-bottom: 20px; }
 .report-header h1 { margin: 0 0 4px; font-size: 22px; }
 .report-header p { margin: 0; color: #666; font-size: 14px; }
@@ -148,8 +149,18 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     </div>
   </div>
   <div class="ov-section">
-    <h2>주차별 성과</h2>
-    <div class="ov-placeholder">주 단위 집계 차트 — 다음 단계에서 채웁니다</div>
+    <h2>주차별 성과 (월~일 기준)</h2>
+    <div class="ov-chart-row">
+      <div class="ov-chart-box">
+        <h3>주별 광고비</h3>
+        <div id="ov-weekly-bar"></div>
+      </div>
+      <div class="ov-chart-box">
+        <h3>주별 CTR · 구매전환율</h3>
+        <div id="ov-weekly-line"></div>
+        <div class="ov-legend" id="ov-weekly-line-legend"></div>
+      </div>
+    </div>
   </div>
   <div class="ov-section">
     <h2>캠페인 통합 성과</h2>
@@ -289,6 +300,7 @@ function onOverviewPhaseChange(el) {
   var anyChecked = chips.some(function(c) { return c.querySelector('input').checked; });
   if (!anyChecked) { allChip.classList.add('checked'); allChip.querySelector('input').checked = true; }
   el.closest('.ov-phase-chip').classList.toggle('checked', el.checked);
+  applyPhaseDefaultDateRange();
   refreshOverviewAll();
 }
 
@@ -343,19 +355,85 @@ function computeOverviewTotals(rows) {
 function computeDailyRows(rows) {
   const byDate = {};
   rows.forEach(function(r) {
-    if (!byDate[r.d]) byDate[r.d] = { d: r.d, imp: 0, clk: 0, sp: 0, pur: 0 };
+    if (!byDate[r.d]) byDate[r.d] = { d: r.d, d2: r.d, imp: 0, clk: 0, sp: 0, pur: 0 };
     const g = byDate[r.d];
     g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.pur += r.pur;
   });
   return Object.keys(byDate).sort().map(function(d) {
     const g = byDate[d];
-    return { d: d, sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0 };
+    return { d: d, d2: d, sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0 };
+  });
+}
+
+function weekStart(dateStr) {
+  const dt = new Date(dateStr + 'T00:00:00');
+  const day = dt.getDay(); // 0=일 ... 6=토
+  const diff = (day === 0 ? -6 : 1 - day); // 월요일까지 며칠 빼야 하는지
+  return fmtDate(addDays(dt, diff));
+}
+
+function computeWeeklyRows(rows) {
+  const byWeek = {};
+  rows.forEach(function(r) {
+    const wk = weekStart(r.d);
+    if (!byWeek[wk]) byWeek[wk] = { d: wk, imp: 0, clk: 0, sp: 0, pur: 0 };
+    const g = byWeek[wk];
+    g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.pur += r.pur;
+  });
+  return Object.keys(byWeek).sort().map(function(wk) {
+    const g = byWeek[wk];
+    return {
+      d: wk, d2: fmtDate(addDays(new Date(wk + 'T00:00:00'), 6)),
+      sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0,
+    };
   });
 }
 
 function tickEvery(n) { return Math.max(1, Math.ceil(n / 8)); }
 
-function renderDailyBarChart(containerId, rows) {
+function dateRangeLabel(r) {
+  return r.d === r.d2 ? r.d : (r.d + ' ~ ' + r.d2);
+}
+
+function ensureTooltipEl() {
+  let el = document.getElementById('ov-tooltip');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'ov-tooltip';
+    el.className = 'ov-tooltip';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+
+function positionTooltip(evt) {
+  const el = document.getElementById('ov-tooltip');
+  if (!el) return;
+  const pad = 14;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  const rect = el.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth) x = evt.clientX - rect.width - pad;
+  if (y + rect.height > window.innerHeight) y = evt.clientY - rect.height - pad;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+}
+
+function hideTooltip() {
+  const el = document.getElementById('ov-tooltip');
+  if (el) el.style.display = 'none';
+}
+
+function attachTooltip(el, textFn) {
+  el.addEventListener('mousemove', function(evt) {
+    const tip = ensureTooltipEl();
+    tip.textContent = textFn();
+    tip.style.display = 'block';
+    positionTooltip(evt);
+  });
+  el.addEventListener('mouseleave', hideTooltip);
+}
+
+function renderBarChart(containerId, rows) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   if (!rows.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
@@ -378,9 +456,7 @@ function renderDailyBarChart(containerId, rows) {
     const h = maxVal ? (r.sp / maxVal) * innerH : 0;
     const y = padT + innerH - h;
     const rect = svgEl('rect', { x: x, y: y, width: barW, height: Math.max(h, 0), rx: 3, ry: 3, fill: CHART_BLUE });
-    const title = svgEl('title', {});
-    title.textContent = r.d + ' · ' + fmtWon(r.sp);
-    rect.appendChild(title);
+    attachTooltip(rect, function() { return dateRangeLabel(r) + ' · 광고비 ' + fmtWon(r.sp); });
     svg.appendChild(rect);
     if (i % every === 0) {
       const t = svgEl('text', { x: padL + i * slot + slot / 2, y: H - 5, 'text-anchor': 'middle', 'font-size': 10, fill: '#9aa3b2' });
@@ -391,7 +467,7 @@ function renderDailyBarChart(containerId, rows) {
   container.appendChild(svg);
 }
 
-function renderDailyLineChart(containerId, rows) {
+function renderLineChart(containerId, rows) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   if (!rows.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
@@ -420,10 +496,8 @@ function renderDailyLineChart(containerId, rows) {
     rows.forEach(function(r, i) {
       const x = padL + i * stepX;
       const y = padT + innerH - (maxVal ? (r[key] / maxVal) * innerH : 0);
-      const c = svgEl('circle', { cx: x, cy: y, r: 2.5, fill: color });
-      const title = svgEl('title', {});
-      title.textContent = r.d + ' · ' + name + ' ' + r[key].toFixed(2) + '%';
-      c.appendChild(title);
+      const c = svgEl('circle', { cx: x, cy: y, r: 3, fill: color });
+      attachTooltip(c, function() { return dateRangeLabel(r) + ' · ' + name + ' ' + r[key].toFixed(2) + '%'; });
       svg.appendChild(c);
     });
   });
@@ -446,8 +520,11 @@ function refreshOverviewAll() {
   const rows = overviewFilteredRows();
   updateScorecard('ov', computeOverviewTotals(rows), false);
   const daily = computeDailyRows(rows);
-  renderDailyBarChart('ov-daily-bar', daily);
-  renderDailyLineChart('ov-daily-line', daily);
+  renderBarChart('ov-daily-bar', daily);
+  renderLineChart('ov-daily-line', daily);
+  const weekly = computeWeeklyRows(rows);
+  renderBarChart('ov-weekly-bar', weekly);
+  renderLineChart('ov-weekly-line', weekly);
 }
 
 function applyOverviewDatePreset(preset) {
@@ -466,6 +543,25 @@ function onOverviewDateChange() {
   refreshOverviewAll();
 }
 
+function overviewSelectedDateBounds() {
+  const dates = [];
+  overviewSelectedTabIds().forEach(function(tabId) {
+    (TABS[tabId].rows || []).forEach(function(r) { dates.push(r.d); });
+  });
+  if (!dates.length) return null;
+  dates.sort();
+  return [dates[0], dates[dates.length - 1]];
+}
+
+function applyPhaseDefaultDateRange() {
+  const bounds = overviewSelectedDateBounds();
+  if (!bounds) return;
+  document.getElementById('start-ov').value = bounds[0];
+  document.getElementById('end-ov').value = bounds[1];
+  const presetEl = document.getElementById('preset-ov');
+  if (presetEl) presetEl.value = 'custom';
+}
+
 function initOverviewDate() {
   const allDates = [];
   Object.keys(TABS).forEach(function(tabId) {
@@ -475,14 +571,12 @@ function initOverviewDate() {
   });
   allDates.sort();
   const minDate = allDates[0], maxDate = allDates[allDates.length - 1];
-  const [defStart, defEnd] = monthBounds(maxDate);
   const startInput = document.getElementById('start-ov');
   const endInput = document.getElementById('end-ov');
   startInput.min = minDate; startInput.max = maxDate;
   endInput.min = minDate; endInput.max = maxDate;
-  startInput.value = defStart < minDate ? minDate : defStart;
-  endInput.value = defEnd > maxDate ? maxDate : defEnd;
   document.getElementById('date-hint-ov').textContent = '데이터 보유 기간: ' + minDate + ' ~ ' + maxDate;
+  applyPhaseDefaultDateRange();
   refreshOverviewAll();
 }
 

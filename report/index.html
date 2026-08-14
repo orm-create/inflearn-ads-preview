@@ -45,6 +45,16 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .ov-rank-value { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: #333; }
 .ov-rank-bar-track { height: 7px; background: #f1f3f7; border-radius: 4px; overflow: hidden; }
 .ov-rank-bar-fill { height: 100%; border-radius: 4px; }
+.ov-rank-thumb { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; flex: 0 0 28px; background: #eef1f7; }
+.ov-rank-thumb-empty { width: 28px; height: 28px; border-radius: 6px; flex: 0 0 28px; background: #eef1f7; }
+.ov-metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.ov-chart-box-sm { padding: 10px 12px; }
+.ov-chart-box-sm h3 { margin-bottom: 4px; }
+.ov-budget-row { margin-bottom: 12px; }
+.ov-budget-row:last-child { margin-bottom: 0; }
+.ov-budget-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; margin-bottom: 4px; }
+.ov-budget-label { font-weight: 700; color: #333; }
+.ov-budget-value { color: #5b6b82; }
 .report-header { margin-bottom: 20px; }
 .report-header h1 { margin: 0 0 4px; font-size: 22px; }
 .report-header p { margin: 0; color: #666; font-size: 14px; }
@@ -139,6 +149,12 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     </div>
   </div>
   <div class="ov-section">
+    <h2>예산 진척률 (차수당 1,000만원 기준)</h2>
+    <div class="ov-chart-box">
+      <div id="ov-budget-progress"></div>
+    </div>
+  </div>
+  <div class="ov-section">
     <h2>핵심 지표 (매체 · 믹스패널 기준)</h2>
     <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-ov"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-ov"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-ov"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
   </div>
@@ -146,13 +162,14 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <h2>데일리 성과</h2>
     <div class="ov-chart-row">
       <div class="ov-chart-box">
-        <h3>일별 광고비</h3>
-        <div id="ov-daily-bar"></div>
+        <h3>일별 광고비 · CTR</h3>
+        <div id="ov-daily-a"></div>
+        <div class="ov-legend" id="ov-daily-a-legend"></div>
       </div>
       <div class="ov-chart-box">
-        <h3>일별 CTR · 구매전환율</h3>
-        <div id="ov-daily-line"></div>
-        <div class="ov-legend" id="ov-daily-line-legend"></div>
+        <h3>일별 클릭 · 구매전환율</h3>
+        <div id="ov-daily-b"></div>
+        <div class="ov-legend" id="ov-daily-b-legend"></div>
       </div>
     </div>
   </div>
@@ -160,23 +177,30 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <h2>주차별 성과 (월~일 기준)</h2>
     <div class="ov-chart-row">
       <div class="ov-chart-box">
-        <h3>주별 광고비</h3>
-        <div id="ov-weekly-bar"></div>
+        <h3>주별 광고비 · CTR</h3>
+        <div id="ov-weekly-a"></div>
+        <div class="ov-legend" id="ov-weekly-a-legend"></div>
       </div>
       <div class="ov-chart-box">
-        <h3>주별 CTR · 구매전환율</h3>
-        <div id="ov-weekly-line"></div>
-        <div class="ov-legend" id="ov-weekly-line-legend"></div>
+        <h3>주별 클릭 · 구매전환율</h3>
+        <div id="ov-weekly-b"></div>
+        <div class="ov-legend" id="ov-weekly-b-legend"></div>
       </div>
     </div>
   </div>
   <div class="ov-section">
-    <h2>캠페인 통합 성과</h2>
-    <div class="ov-chart-box" style="margin-bottom: 16px;">
-      <h3>차수별 광고비 비교 (선택한 기간 내, 차수 필터와 무관하게 항상 3개 전부 표시)</h3>
-      <div id="ov-campaign-bar"></div>
+    <h2>캠페인(강의)별 성과 비교</h2>
+    <div class="ov-legend" id="ov-campaign-legend" style="margin-bottom: 10px;"></div>
+    <div class="ov-metric-grid">
+      <div class="ov-chart-box ov-chart-box-sm"><h3>광고비</h3><div id="ov-cmp-sp"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>CTR</h3><div id="ov-cmp-ctr"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>장바구니담기(믹스패널)</h3><div id="ov-cmp-mcart"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>회원가입(믹스패널)</h3><div id="ov-cmp-mreg"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>구매수(믹스패널)</h3><div id="ov-cmp-mpur"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>매출(믹스패널)</h3><div id="ov-cmp-mpv"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>ROAS(믹스패널)</h3><div id="ov-cmp-mroas"></div></div>
     </div>
-    <div class="ov-chart-row">
+    <div class="ov-chart-row" style="margin-top: 16px;">
       <div class="ov-chart-box">
         <h3>믹스패널 기준 구매전환율 TOP5 (누적 광고비 10만원 이상 소재만)</h3>
         <div class="ov-rank-list" id="ov-cvr-top"></div>
@@ -382,7 +406,7 @@ function computeDailyRows(rows) {
   });
   return Object.keys(byDate).sort().map(function(d) {
     const g = byDate[d];
-    return { d: d, d2: d, sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0 };
+    return { d: d, d2: d, sp: g.sp, clk: g.clk, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0 };
   });
 }
 
@@ -405,7 +429,7 @@ function computeWeeklyRows(rows) {
     const g = byWeek[wk];
     return {
       d: wk, d2: fmtDate(addDays(new Date(wk + 'T00:00:00'), 6)),
-      sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0,
+      sp: g.sp, clk: g.clk, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0,
     };
   });
 }
@@ -454,78 +478,61 @@ function attachTooltip(el, textFn) {
   el.addEventListener('mouseleave', hideTooltip);
 }
 
-function renderBarChart(containerId, rows) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  if (!rows.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
-  const W = container.clientWidth || 480, H = 200, padL = 46, padB = 22, padT = 8, padR = 8;
-  const innerW = W - padL - padR, innerH = H - padT - padB;
-  const maxVal = Math.max(1, Math.max.apply(null, rows.map(function(r) { return r.sp; })));
-  const slot = innerW / rows.length;
-  const barW = Math.max(2, slot - 2);
-  const svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', height: H, class: 'ov-chart-svg' });
-  for (let i = 0; i <= 4; i++) {
-    const y = padT + innerH - (innerH * i / 4);
-    svg.appendChild(svgEl('line', { x1: padL, x2: W - padR, y1: y, y2: y, stroke: '#e8ecf3', 'stroke-width': 1 }));
-    const label = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: '#9aa3b2' });
-    label.textContent = fmtCompact(maxVal * i / 4);
-    svg.appendChild(label);
-  }
-  const every = tickEvery(rows.length);
-  rows.forEach(function(r, i) {
-    const x = padL + i * slot + (slot - barW) / 2;
-    const h = maxVal ? (r.sp / maxVal) * innerH : 0;
-    const y = padT + innerH - h;
-    const rect = svgEl('rect', { x: x, y: y, width: barW, height: Math.max(h, 0), rx: 3, ry: 3, fill: CHART_BLUE });
-    attachTooltip(rect, function() { return dateRangeLabel(r) + ' · 광고비 ' + fmtWon(r.sp); });
-    svg.appendChild(rect);
-    if (i % every === 0) {
-      const t = svgEl('text', { x: padL + i * slot + slot / 2, y: H - 5, 'text-anchor': 'middle', 'font-size': 10, fill: '#9aa3b2' });
-      t.textContent = r.d.slice(5);
-      svg.appendChild(t);
-    }
-  });
-  container.appendChild(svg);
-}
+let comboGradientSeq = 0;
 
-function renderLineChart(containerId, rows) {
+function renderComboChart(containerId, rows, spec) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   if (!rows.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
-  const W = container.clientWidth || 480, H = 200, padL = 40, padB = 22, padT = 8, padR = 8;
+  const W = container.clientWidth || 480, H = 210, padL = 48, padR = 48, padT = 10, padB = 22;
   const innerW = W - padL - padR, innerH = H - padT - padB;
-  const maxVal = Math.max(1, Math.max.apply(null, rows.map(function(r) { return Math.max(r.ctr, r.purrate); })));
-  const stepX = rows.length > 1 ? innerW / (rows.length - 1) : 0;
+  const barMax = Math.max(1, Math.max.apply(null, rows.map(function(r) { return r[spec.barKey]; })));
+  const lineMax = Math.max(1, Math.max.apply(null, rows.map(function(r) { return r[spec.lineKey]; })));
+  const slot = innerW / rows.length;
+  const barW = Math.max(2, slot - 3);
+  const gid = 'combo-grad-' + (comboGradientSeq++);
   const svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', height: H, class: 'ov-chart-svg' });
+  const defs = svgEl('defs', {});
+  const grad = svgEl('linearGradient', { id: gid, x1: '0', y1: '0', x2: '0', y2: '1' });
+  grad.appendChild(svgEl('stop', { offset: '0%', 'stop-color': spec.barColorTop }));
+  grad.appendChild(svgEl('stop', { offset: '100%', 'stop-color': spec.barColorBottom }));
+  defs.appendChild(grad);
+  svg.appendChild(defs);
   for (let i = 0; i <= 4; i++) {
     const y = padT + innerH - (innerH * i / 4);
-    svg.appendChild(svgEl('line', { x1: padL, x2: W - padR, y1: y, y2: y, stroke: '#e8ecf3', 'stroke-width': 1 }));
-    const label = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: '#9aa3b2' });
-    label.textContent = (maxVal * i / 4).toFixed(1) + '%';
-    svg.appendChild(label);
+    svg.appendChild(svgEl('line', { x1: padL, x2: W - padR, y1: y, y2: y, stroke: '#eef1f6', 'stroke-width': 1 }));
+    const lbl = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: spec.barColorBottom });
+    lbl.textContent = fmtCompact(barMax * i / 4);
+    svg.appendChild(lbl);
+    const rlbl = svgEl('text', { x: W - padR + 6, y: y + 3, 'text-anchor': 'start', 'font-size': 10, fill: spec.lineColor });
+    rlbl.textContent = (lineMax * i / 4).toFixed(1) + '%';
+    svg.appendChild(rlbl);
   }
-  function pathFor(key) {
-    return rows.map(function(r, i) {
-      const x = padL + i * stepX;
-      const y = padT + innerH - (maxVal ? (r[key] / maxVal) * innerH : 0);
-      return (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y.toFixed(1);
-    }).join(' ');
-  }
-  [['ctr', CHART_BLUE, 'CTR'], ['purrate', CHART_ORANGE, '구매전환율']].forEach(function(spec) {
-    const key = spec[0], color = spec[1], name = spec[2];
-    svg.appendChild(svgEl('path', { d: pathFor(key), fill: 'none', stroke: color, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
-    rows.forEach(function(r, i) {
-      const x = padL + i * stepX;
-      const y = padT + innerH - (maxVal ? (r[key] / maxVal) * innerH : 0);
-      const c = svgEl('circle', { cx: x, cy: y, r: 3, fill: color });
-      attachTooltip(c, function() { return dateRangeLabel(r) + ' · ' + name + ' ' + r[key].toFixed(2) + '%'; });
-      svg.appendChild(c);
-    });
+  function xCenter(i) { return padL + i * slot + slot / 2; }
+  rows.forEach(function(r, i) {
+    const bx = padL + i * slot + (slot - barW) / 2;
+    const bh = barMax ? (r[spec.barKey] / barMax) * innerH : 0;
+    const by = padT + innerH - bh;
+    svg.appendChild(svgEl('rect', { x: bx, y: by, width: barW, height: Math.max(bh, 0), rx: 3, ry: 3, fill: 'url(#' + gid + ')' }));
+  });
+  const linePath = rows.map(function(r, i) {
+    const y = padT + innerH - (lineMax ? (r[spec.lineKey] / lineMax) * innerH : 0);
+    return (i === 0 ? 'M' : 'L') + xCenter(i).toFixed(1) + ' ' + y.toFixed(1);
+  }).join(' ');
+  svg.appendChild(svgEl('path', { d: linePath, fill: 'none', stroke: spec.lineColor, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }));
+  rows.forEach(function(r, i) {
+    const y = padT + innerH - (lineMax ? (r[spec.lineKey] / lineMax) * innerH : 0);
+    svg.appendChild(svgEl('circle', { cx: xCenter(i), cy: y, r: 2.8, fill: spec.lineColor }));
   });
   const every = tickEvery(rows.length);
   rows.forEach(function(r, i) {
+    const zone = svgEl('rect', { x: padL + i * slot, y: padT, width: slot, height: innerH, fill: 'transparent', 'pointer-events': 'all' });
+    attachTooltip(zone, function() {
+      return dateRangeLabel(r) + ' · ' + spec.barLabel + ' ' + spec.barFmt(r[spec.barKey]) + ' · ' + spec.lineLabel + ' ' + spec.lineFmt(r[spec.lineKey]);
+    });
+    svg.appendChild(zone);
     if (i % every === 0) {
-      const t = svgEl('text', { x: padL + i * stepX, y: H - 5, 'text-anchor': 'middle', 'font-size': 10, fill: '#9aa3b2' });
+      const t = svgEl('text', { x: xCenter(i), y: H - 5, 'text-anchor': 'middle', 'font-size': 10, fill: '#9aa3b2' });
       t.textContent = r.d.slice(5);
       svg.appendChild(t);
     }
@@ -533,53 +540,62 @@ function renderLineChart(containerId, rows) {
   container.appendChild(svg);
   const legend = document.getElementById(containerId + '-legend');
   if (legend) legend.innerHTML =
-    '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + CHART_BLUE + '"></span>CTR</span>' +
-    '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + CHART_ORANGE + '"></span>구매전환율</span>';
+    '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + spec.barColorBottom + '"></span>' + spec.barLabel + '</span>' +
+    '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + spec.lineColor + '"></span>' + spec.lineLabel + '</span>';
 }
 
-function allPhaseRowsInDateRange() {
-  const start = fieldVal('start-ov'), end = fieldVal('end-ov');
-  const byPhase = {};
-  Object.keys(TABS).forEach(function(tabId) {
-    const t = TABS[tabId];
-    if (t.isRegionTab) return;
-    if (!byPhase[t.label]) byPhase[t.label] = [];
-    (t.rows || []).forEach(function(r) {
-      if (r.d >= start && r.d <= end) byPhase[t.label].push(r);
-    });
+const CATEGORICAL_COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#4a3aa7', '#e34948'];
+function colorForIndex(i) { return CATEGORICAL_COLORS[i % CATEGORICAL_COLORS.length]; }
+
+function computeCampaignAgg(rows) {
+  const grouped = {};
+  rows.forEach(function(r) {
+    const key = r.c || '(캠페인 미상)';
+    if (!grouped[key]) grouped[key] = { name: key, imp: 0, clk: 0, sp: 0, mcart: 0, mreg: 0, mpur: 0, mpv: 0 };
+    const g = grouped[key];
+    g.imp += r.imp; g.clk += r.clk; g.sp += r.sp;
+    g.mcart += (r.mcart || 0); g.mreg += (r.mreg || 0); g.mpur += (r.mpur || 0); g.mpv += (r.mpv || 0);
   });
-  return byPhase;
+  return Object.keys(grouped).sort().map(function(k) {
+    const g = grouped[k];
+    return {
+      name: g.name, sp: g.sp, ctr: g.imp ? g.clk / g.imp * 100 : 0,
+      mcart: g.mcart, mreg: g.mreg, mpur: g.mpur, mpv: g.mpv,
+      mroas: g.sp ? g.mpv / g.sp : 0,
+    };
+  });
 }
 
-function renderPhaseBarChart(containerId, categories) {
+function renderGroupedMetricChart(containerId, campaigns, metricKey, fmt) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
-  if (!categories.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
-  const W = container.clientWidth || 480, H = 200, padL = 46, padB = 26, padT = 8, padR = 8;
+  if (!campaigns.length) { container.innerHTML = '<div class="ov-placeholder">데이터 없음</div>'; return; }
+  const W = container.clientWidth || 180, H = 130, padL = 6, padR = 6, padT = 20, padB = 6;
   const innerW = W - padL - padR, innerH = H - padT - padB;
-  const maxVal = Math.max(1, Math.max.apply(null, categories.map(function(c) { return c.value; })));
-  const slot = innerW / categories.length;
-  const barW = Math.min(64, slot * 0.5);
+  const maxVal = Math.max(1, Math.max.apply(null, campaigns.map(function(c) { return c[metricKey]; })));
+  const slot = innerW / campaigns.length;
+  const barW = Math.min(44, slot * 0.6);
   const svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', height: H, class: 'ov-chart-svg' });
-  for (let i = 0; i <= 4; i++) {
-    const y = padT + innerH - (innerH * i / 4);
-    svg.appendChild(svgEl('line', { x1: padL, x2: W - padR, y1: y, y2: y, stroke: '#e8ecf3', 'stroke-width': 1 }));
-    const label = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: '#9aa3b2' });
-    label.textContent = fmtCompact(maxVal * i / 4);
-    svg.appendChild(label);
-  }
-  categories.forEach(function(c, i) {
+  campaigns.forEach(function(c, i) {
+    const val = c[metricKey];
     const x = padL + i * slot + (slot - barW) / 2;
-    const h = maxVal ? (c.value / maxVal) * innerH : 0;
+    const h = maxVal ? (val / maxVal) * innerH : 0;
     const y = padT + innerH - h;
-    const rect = svgEl('rect', { x: x, y: y, width: barW, height: Math.max(h, 0), rx: 4, ry: 4, fill: CHART_BLUE });
-    attachTooltip(rect, function() { return c.label + ' · 광고비 ' + fmtWon(c.value); });
+    const rect = svgEl('rect', { x: x, y: y, width: barW, height: Math.max(h, 0), rx: 3, ry: 3, fill: colorForIndex(i) });
+    attachTooltip(rect, function() { return c.name + ' · ' + fmt(val); });
     svg.appendChild(rect);
-    const t = svgEl('text', { x: padL + i * slot + slot / 2, y: H - 8, 'text-anchor': 'middle', 'font-size': 11, fill: '#5b6b82', 'font-weight': 700 });
-    t.textContent = c.label;
+    const t = svgEl('text', { x: x + barW / 2, y: y - 4, 'text-anchor': 'middle', 'font-size': 10, fill: '#5b6b82', 'font-weight': 700 });
+    t.textContent = fmt(val);
     svg.appendChild(t);
   });
   container.appendChild(svg);
+}
+
+function renderCampaignLegend(containerId, campaigns) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = campaigns.map(function(c, i) {
+    return '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + colorForIndex(i) + '"></span>' + escapeHtml(c.name) + '</span>';
+  }).join('');
 }
 
 function computeCreativeAgg(rows) {
@@ -599,14 +615,25 @@ function computeCreativeAgg(rows) {
   });
 }
 
+function findCreativeImage(name) {
+  const tabIds = overviewSelectedTabIds();
+  for (let i = 0; i < tabIds.length; i++) {
+    const img = (TABS[tabIds[i]].images || {})[name];
+    if (img) return img;
+  }
+  return null;
+}
+
 function renderRankedBars(containerId, items, opts) {
   const container = document.getElementById(containerId);
   if (!items.length) { container.innerHTML = '<div class="ov-placeholder">조건에 맞는 소재가 없습니다(누적 광고비 10만원 이상)</div>'; return; }
   const maxVal = Math.max.apply(null, items.map(function(it) { return it.value; })) || 1;
   container.innerHTML = items.map(function(it, i) {
     const pct = Math.max(2, it.value / maxVal * 100);
+    const img = findCreativeImage(it.name);
+    const thumb = img ? '<img class="ov-rank-thumb" src="' + img + '" alt="">' : '<div class="ov-rank-thumb-empty"></div>';
     return '<div class="ov-rank-row">' +
-      '<div class="ov-rank-head"><span class="ov-rank-idx">' + (i + 1) + '</span>' +
+      '<div class="ov-rank-head">' + thumb + '<span class="ov-rank-idx">' + (i + 1) + '</span>' +
       '<span class="ov-rank-name" title="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + '</span>' +
       '<span class="ov-rank-value">' + opts.fmt(it.value) + '</span></div>' +
       '<div class="ov-rank-bar-track"><div class="ov-rank-bar-fill" style="width:' + pct + '%;background:' + opts.color + '"></div></div>' +
@@ -614,29 +641,57 @@ function renderRankedBars(containerId, items, opts) {
   }).join('');
 }
 
+const PHASE_BUDGET = 10000000;
+
+function renderBudgetProgress(containerId) {
+  const el = document.getElementById(containerId);
+  const tabIds = Object.keys(TABS).filter(function(tabId) { return !TABS[tabId].isRegionTab; });
+  el.innerHTML = tabIds.map(function(tabId, i) {
+    const t = TABS[tabId];
+    const spent = (t.rows || []).reduce(function(s, r) { return s + r.sp; }, 0);
+    const pctRaw = spent / PHASE_BUDGET * 100;
+    const pct = Math.max(0, Math.min(100, pctRaw));
+    const color = pctRaw > 100 ? '#e34948' : colorForIndex(i);
+    return '<div class="ov-budget-row">' +
+      '<div class="ov-budget-head"><span class="ov-budget-label">' + escapeHtml(t.label) + '</span>' +
+      '<span class="ov-budget-value">' + fmtWon(spent) + ' / ' + fmtWon(PHASE_BUDGET) + ' (' + pctRaw.toFixed(1) + '%)</span></div>' +
+      '<div class="ov-rank-bar-track"><div class="ov-rank-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
+      '</div>';
+  }).join('');
+}
+
 const CREATIVE_MIN_SPEND = 100000;
+const COMBO_SPEC_A = { barKey: 'sp', barFmt: fmtWon, barLabel: '광고비', lineKey: 'ctr', lineFmt: fmtPct, lineLabel: 'CTR', barColorTop: '#86b6ef', barColorBottom: '#1c5cab', lineColor: '#eb6834' };
+const COMBO_SPEC_B = { barKey: 'clk', barFmt: fmtInt, barLabel: '클릭', lineKey: 'purrate', lineFmt: fmtPct, lineLabel: '구매전환율', barColorTop: '#7ee0c0', barColorBottom: '#0f8a5e', lineColor: '#4a3aa7' };
 
 function refreshOverviewAll() {
   const rows = overviewFilteredRows();
   updateScorecard('ov', computeOverviewTotals(rows), false);
-  const daily = computeDailyRows(rows);
-  renderBarChart('ov-daily-bar', daily);
-  renderLineChart('ov-daily-line', daily);
-  const weekly = computeWeeklyRows(rows);
-  renderBarChart('ov-weekly-bar', weekly);
-  renderLineChart('ov-weekly-line', weekly);
 
-  const phaseRows = allPhaseRowsInDateRange();
-  const phaseCats = Object.keys(phaseRows).map(function(label) {
-    return { label: label, value: phaseRows[label].reduce(function(s, r) { return s + r.sp; }, 0) };
-  });
-  renderPhaseBarChart('ov-campaign-bar', phaseCats);
+  const daily = computeDailyRows(rows);
+  renderComboChart('ov-daily-a', daily, COMBO_SPEC_A);
+  renderComboChart('ov-daily-b', daily, COMBO_SPEC_B);
+  const weekly = computeWeeklyRows(rows);
+  renderComboChart('ov-weekly-a', weekly, COMBO_SPEC_A);
+  renderComboChart('ov-weekly-b', weekly, COMBO_SPEC_B);
+
+  const campaigns = computeCampaignAgg(rows);
+  renderCampaignLegend('ov-campaign-legend', campaigns);
+  renderGroupedMetricChart('ov-cmp-sp', campaigns, 'sp', fmtWon);
+  renderGroupedMetricChart('ov-cmp-ctr', campaigns, 'ctr', fmtPct);
+  renderGroupedMetricChart('ov-cmp-mcart', campaigns, 'mcart', fmtInt);
+  renderGroupedMetricChart('ov-cmp-mreg', campaigns, 'mreg', fmtInt);
+  renderGroupedMetricChart('ov-cmp-mpur', campaigns, 'mpur', fmtInt);
+  renderGroupedMetricChart('ov-cmp-mpv', campaigns, 'mpv', fmtWon);
+  renderGroupedMetricChart('ov-cmp-mroas', campaigns, 'mroas', fmtRoas);
 
   const creativeAgg = computeCreativeAgg(rows).filter(function(c) { return c.sp >= CREATIVE_MIN_SPEND; });
   const cvrTop = creativeAgg.slice().sort(function(a, b) { return b.mpurrate - a.mpurrate; }).slice(0, 5);
   const roasTop = creativeAgg.slice().sort(function(a, b) { return b.mroas - a.mroas; }).slice(0, 5);
   renderRankedBars('ov-cvr-top', cvrTop.map(function(c) { return { name: c.name, value: c.mpurrate }; }), { fmt: fmtPct, color: CHART_BLUE });
   renderRankedBars('ov-roas-top', roasTop.map(function(c) { return { name: c.name, value: c.mroas }; }), { fmt: fmtRoas, color: CHART_ORANGE });
+
+  renderBudgetProgress('ov-budget-progress');
 }
 
 function applyOverviewDatePreset(preset) {

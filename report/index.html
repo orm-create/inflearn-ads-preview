@@ -46,9 +46,9 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .ov-top5-metrics { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 11.5px; color: #5b6b82; }
 .ov-top5-metrics b { color: #333; }
 .ov-metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-.ov-chart-box-sm { padding: 12px 14px; min-height: 168px; box-sizing: border-box; display: flex; flex-direction: column; }
+.ov-chart-box-sm { padding: 12px 14px; min-height: 180px; box-sizing: border-box; display: flex; flex-direction: column; }
 .ov-chart-box-sm h3 { margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ov-chart-box-sm > div { flex: 1 1 auto; min-height: 130px; }
+.ov-chart-box-sm > div { flex: 1 1 auto; min-height: 140px; }
 .ov-budget-row { margin-bottom: 12px; }
 .ov-budget-row:last-child { margin-bottom: 0; }
 .ov-budget-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; margin-bottom: 4px; }
@@ -626,7 +626,7 @@ function renderGroupedMetricChart(containerId, campaigns, metricKey, fmt) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
   if (!campaigns.length) { container.innerHTML = '<div class="ov-placeholder">데이터 없음</div>'; return; }
-  const W = container.clientWidth || 180, H = 130, padL = 6, padR = 6, padT = 20, padB = 6;
+  const W = container.clientWidth || 180, H = 140, padL = 6, padR = 6, padT = 30, padB = 6;
   const innerW = W - padL - padR, innerH = H - padT - padB;
   const maxVal = Math.max(1, Math.max.apply(null, campaigns.map(function(c) { return c[metricKey]; })));
   const slot = innerW / campaigns.length;

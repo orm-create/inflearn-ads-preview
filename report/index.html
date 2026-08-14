@@ -37,19 +37,18 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .ov-legend-item { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: #5b6b82; }
 .ov-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .ov-tooltip { position: fixed; display: none; background: #1a1a1a; color: #fff; font-size: 11.5px; line-height: 1.5; padding: 6px 9px; border-radius: 6px; pointer-events: none; z-index: 1000; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
-.ov-rank-row { margin-bottom: 10px; }
-.ov-rank-row:last-child { margin-bottom: 0; }
-.ov-rank-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.ov-rank-idx { flex: 0 0 16px; font-size: 11.5px; font-weight: 800; color: #9aa3b2; }
-.ov-rank-name { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; color: #333; }
-.ov-rank-value { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: #333; }
-.ov-rank-bar-track { height: 7px; background: #f1f3f7; border-radius: 4px; overflow: hidden; }
-.ov-rank-bar-fill { height: 100%; border-radius: 4px; }
-.ov-rank-thumb { width: 28px; height: 28px; border-radius: 6px; object-fit: cover; flex: 0 0 28px; background: #eef1f7; }
-.ov-rank-thumb-empty { width: 28px; height: 28px; border-radius: 6px; flex: 0 0 28px; background: #eef1f7; }
-.ov-metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-.ov-chart-box-sm { padding: 10px 12px; }
-.ov-chart-box-sm h3 { margin-bottom: 4px; }
+.ov-top5-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid #eef1f6; }
+.ov-top5-row:last-child { border-bottom: none; }
+.ov-top5-idx { flex: 0 0 18px; font-size: 12px; font-weight: 800; color: #9aa3b2; text-align: center; }
+.ov-top5-thumb, .ov-top5-thumb-empty { width: 52px; height: 52px; border-radius: 8px; object-fit: cover; flex: 0 0 52px; background: #eef1f7; cursor: zoom-in; }
+.ov-top5-body { flex: 1 1 auto; min-width: 0; }
+.ov-top5-name { font-size: 12.5px; font-weight: 700; color: #333; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 4px; }
+.ov-top5-metrics { display: flex; flex-wrap: wrap; gap: 8px 12px; font-size: 11.5px; color: #5b6b82; }
+.ov-top5-metrics b { color: #333; }
+.ov-metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.ov-chart-box-sm { padding: 12px 14px; min-height: 168px; box-sizing: border-box; display: flex; flex-direction: column; }
+.ov-chart-box-sm h3 { margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ov-chart-box-sm > div { flex: 1 1 auto; min-height: 130px; }
 .ov-budget-row { margin-bottom: 12px; }
 .ov-budget-row:last-child { margin-bottom: 0; }
 .ov-budget-head { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; margin-bottom: 4px; }
@@ -81,9 +80,13 @@ th.col-mp-first-th { border-left: 2px solid #e8ceac !important; }
 .region-btn { padding: 7px 16px; border-radius: 999px; border: 1px solid #d8dce3; background: #fff; cursor: pointer; font-size: 13px; color: #555; }
 .region-btn.active { background: #2952e3; color: #fff; border-color: #2952e3; }
 .region-btn:hover:not(.active) { background: #eef1f6; }
-.table-toolbar { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+.table-toolbar { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 6px; flex-wrap: wrap; }
 .toolbar-btn { padding: 6px 12px; border-radius: 8px; border: 1px solid #d8dce3; background: #fff; cursor: pointer; font-size: 12px; color: #555; }
 .toolbar-btn:hover { background: #eef1f6; color: #2952e3; }
+.group-toggle-btn.active { background: #eaf0ff; border-color: #2952e3; color: #2952e3; }
+.group-header-row th { background: #f7f8fb; font-size: 11px; font-weight: 800; color: #5b6b82; text-align: center; padding: 6px 4px; border-bottom: 1px solid #e2e6ed; }
+.group-th-id { background: #eef1f7; }
+.col-collapsed { visibility: collapse; }
 .date-hint { font-size: 12px; color: #999; }
 .filter-bar select { padding: 6px 10px; border-radius: 8px; border: 1px solid #d8dce3; font-size: 13px; }
 .table-scroll { width: 100%; overflow-x: auto; border-radius: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
@@ -111,9 +114,10 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
 .af-panel .af-actions button.primary, .af-panel .af-textcond-row button.primary { background: #2952e3; color: #fff; border-color: #2952e3; }
 .creative-table td { padding: 2px 4px; border-bottom: 1px solid #f2f3f5; border-right: 1px solid #f2f3f5; font-size: 12px; line-height: 1.05; vertical-align: middle; white-space: nowrap; text-align: center; overflow: hidden; text-overflow: ellipsis; }
 .creative-table td.num { text-align: center; font-variant-numeric: tabular-nums; }
-.col-thumb { width: 64px; }
-.thumb { width: 52px; height: 52px; object-fit: cover; border-radius: 5px; background: #f0f1f3; image-rendering: -webkit-optimize-contrast; }
-.thumb-missing { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #dbe7fb, #eef2f8); border-radius: 5px; color: #5b6b82; font-size: 7px; text-align: center; line-height: 1.2; }
+.col-thumb { width: 88px; }
+.thumb { width: 76px; height: 76px; object-fit: cover; border-radius: 6px; background: #f0f1f3; image-rendering: -webkit-optimize-contrast; cursor: zoom-in; }
+.thumb-missing { width: 76px; height: 76px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #dbe7fb, #eef2f8); border-radius: 6px; color: #5b6b82; font-size: 8px; text-align: center; line-height: 1.2; }
+.ov-img-preview { position: fixed; display: none; max-width: 320px; max-height: 320px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.25); border: 2px solid #fff; z-index: 1001; pointer-events: none; }
 .col-name { max-width: 140px; font-weight: 600; white-space: normal; text-align: center; }
 .campaign-tag { font-weight: 400; font-size: 9px; color: #888; margin-top: 1px; line-height: 1.3; }
 .empty-note { padding: 16px; text-align: center; color: #999; }
@@ -149,13 +153,8 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     </div>
   </div>
   <div class="ov-section">
-    <h2>예산 진척률 (차수당 1,000만원 기준)</h2>
-    <div class="ov-chart-box">
-      <div id="ov-budget-progress"></div>
-    </div>
-  </div>
-  <div class="ov-section">
     <h2>핵심 지표 (매체 · 믹스패널 기준)</h2>
+    <p style="font-size: 12px; color: #9aa3b2; margin: -4px 0 8px;">차수를 하나 이상 개별 선택하면(전체 제외) 기본 지표 줄에 예산 진척률 카드가 함께 표시됩니다.</p>
     <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-ov"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-ov"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-ov"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
   </div>
   <div class="ov-section">
@@ -194,20 +193,20 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <div class="ov-metric-grid">
       <div class="ov-chart-box ov-chart-box-sm"><h3>광고비</h3><div id="ov-cmp-sp"></div></div>
       <div class="ov-chart-box ov-chart-box-sm"><h3>CTR</h3><div id="ov-cmp-ctr"></div></div>
-      <div class="ov-chart-box ov-chart-box-sm"><h3>장바구니담기(믹스패널)</h3><div id="ov-cmp-mcart"></div></div>
-      <div class="ov-chart-box ov-chart-box-sm"><h3>회원가입(믹스패널)</h3><div id="ov-cmp-mreg"></div></div>
-      <div class="ov-chart-box ov-chart-box-sm"><h3>구매수(믹스패널)</h3><div id="ov-cmp-mpur"></div></div>
-      <div class="ov-chart-box ov-chart-box-sm"><h3>매출(믹스패널)</h3><div id="ov-cmp-mpv"></div></div>
-      <div class="ov-chart-box ov-chart-box-sm"><h3>ROAS(믹스패널)</h3><div id="ov-cmp-mroas"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>장바구니담기(믹스)</h3><div id="ov-cmp-mcart"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>회원가입(믹스)</h3><div id="ov-cmp-mreg"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>구매수(믹스)</h3><div id="ov-cmp-mpur"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>매출(믹스)</h3><div id="ov-cmp-mpv"></div></div>
+      <div class="ov-chart-box ov-chart-box-sm"><h3>ROAS(믹스)</h3><div id="ov-cmp-mroas"></div></div>
     </div>
     <div class="ov-chart-row" style="margin-top: 16px;">
       <div class="ov-chart-box">
-        <h3>믹스패널 기준 구매전환율 TOP5 (누적 광고비 10만원 이상 소재만)</h3>
-        <div class="ov-rank-list" id="ov-cvr-top"></div>
+        <h3>구매전환율(믹스패널) TOP5 (누적 광고비 10만원 이상 소재만)</h3>
+        <div class="ov-top5-list" id="ov-cvr-top"></div>
       </div>
       <div class="ov-chart-box">
-        <h3>믹스패널 기준 ROAS TOP5 (누적 광고비 10만원 이상 소재만)</h3>
-        <div class="ov-rank-list" id="ov-roas-top"></div>
+        <h3>CTR TOP5 (누적 광고비 10만원 이상 소재만)</h3>
+        <div class="ov-top5-list" id="ov-ctr-top"></div>
       </div>
     </div>
   </div>
@@ -233,12 +232,13 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <select id="campaign-filter-tab0" onchange="onCampaignFilterChange('tab0')"><option value="__all__">전체 캠페인</option></select>
   </div>
   <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab0"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab0"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab0"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
-  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab0" onclick="toggleFilterRow('tab0')">필터 행 숨기기</button></div>
+  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab0" onclick="toggleFilterRow('tab0')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab0" onclick="toggleColGroup('tab0','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab0" onclick="toggleColGroup('tab0','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab0" onclick="toggleColGroup('tab0','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
     
-    <colgroup><col style="width:64px"><col style="width:140px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"></colgroup>
+    <colgroup><col data-group="id" style="width:88px"><col data-group="id" style="width:140px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"></colgroup>
     <thead id="thead-tab0">
+      <tr class="group-header-row"><th colspan="2" class="group-th group-th-id">구분</th><th colspan="5" class="group-th">매체 주요지표</th><th colspan="9" class="group-th">매체 전환지표</th><th colspan="5" class="group-th">믹스패널 전환지표</th></tr>
       <tr><th>소재<span class="col-resize-handle" data-tab="tab0" data-col="0"></span></th><th class="sortable" data-key="ad_name" data-label="소재 이름" onclick="onSortClick('tab0','ad_name')">소재 이름<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="1"></span></th><th class="sortable" data-key="imp" data-label="노출" onclick="onSortClick('tab0','imp')">노출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="2"></span></th><th class="sortable" data-key="clk" data-label="클릭" onclick="onSortClick('tab0','clk')">클릭<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="3"></span></th><th class="sortable" data-key="ctr" data-label="CTR" onclick="onSortClick('tab0','ctr')">CTR<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="4"></span></th><th class="sortable" data-key="cpc" data-label="CPC" onclick="onSortClick('tab0','cpc')">CPC<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="5"></span></th><th class="sortable" data-key="sp" data-label="광고비" onclick="onSortClick('tab0','sp')">광고비<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="6"></span></th><th class="sortable" data-key="cart" data-label="장바구니담기" onclick="onSortClick('tab0','cart')">장바구니담기<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="7"></span></th><th class="sortable" data-key="reg" data-label="회원가입" onclick="onSortClick('tab0','reg')">회원가입<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="8"></span></th><th class="sortable" data-key="regcpa" data-label="가입CPA" onclick="onSortClick('tab0','regcpa')">가입CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="9"></span></th><th class="sortable" data-key="regrate" data-label="가입율" onclick="onSortClick('tab0','regrate')">가입율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="10"></span></th><th class="sortable" data-key="pur" data-label="구매전환" onclick="onSortClick('tab0','pur')">구매전환<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="11"></span></th><th class="sortable" data-key="purcpa" data-label="구매전환CPA" onclick="onSortClick('tab0','purcpa')">구매전환CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="12"></span></th><th class="sortable" data-key="purrate" data-label="구매전환율" onclick="onSortClick('tab0','purrate')">구매전환율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="13"></span></th><th class="sortable" data-key="pv" data-label="매출" onclick="onSortClick('tab0','pv')">매출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="14"></span></th><th class="sortable" data-key="roas" data-label="ROAS" onclick="onSortClick('tab0','roas')">ROAS<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="15"></span></th><th class="sortable col-mp-first-th" data-key="mcart" data-label="장바구니(믹스)" onclick="onSortClick('tab0','mcart')">장바구니(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="16"></span></th><th class="sortable" data-key="mreg" data-label="회원가입(믹스)" onclick="onSortClick('tab0','mreg')">회원가입(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="17"></span></th><th class="sortable" data-key="mpur" data-label="구매전환(믹스)" onclick="onSortClick('tab0','mpur')">구매전환(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="18"></span></th><th class="sortable" data-key="mpv" data-label="매출(믹스)" onclick="onSortClick('tab0','mpv')">매출(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="19"></span></th><th class="sortable" data-key="mroas" data-label="ROAS(믹스)" onclick="onSortClick('tab0','mroas')">ROAS(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab0" data-col="20"></span></th></tr>
       <tr class="filter-row">
         <th><button type="button" class="af-btn" id="af-btn-ad_name-tab0" onclick="toggleFilterPanel(event,'tab0','ad_name')">필터<span class="af-badge" data-key="ad_name"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-campaign-tab0" onclick="toggleFilterPanel(event,'tab0','campaign')">필터<span class="af-badge" data-key="campaign"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-imp-tab0" onclick="toggleFilterPanel(event,'tab0','imp')">필터<span class="af-badge" data-key="imp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-clk-tab0" onclick="toggleFilterPanel(event,'tab0','clk')">필터<span class="af-badge" data-key="clk"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-ctr-tab0" onclick="toggleFilterPanel(event,'tab0','ctr')">필터<span class="af-badge" data-key="ctr"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cpc-tab0" onclick="toggleFilterPanel(event,'tab0','cpc')">필터<span class="af-badge" data-key="cpc"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-sp-tab0" onclick="toggleFilterPanel(event,'tab0','sp')">필터<span class="af-badge" data-key="sp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cart-tab0" onclick="toggleFilterPanel(event,'tab0','cart')">필터<span class="af-badge" data-key="cart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-reg-tab0" onclick="toggleFilterPanel(event,'tab0','reg')">필터<span class="af-badge" data-key="reg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regcpa-tab0" onclick="toggleFilterPanel(event,'tab0','regcpa')">필터<span class="af-badge" data-key="regcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regrate-tab0" onclick="toggleFilterPanel(event,'tab0','regrate')">필터<span class="af-badge" data-key="regrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pur-tab0" onclick="toggleFilterPanel(event,'tab0','pur')">필터<span class="af-badge" data-key="pur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purcpa-tab0" onclick="toggleFilterPanel(event,'tab0','purcpa')">필터<span class="af-badge" data-key="purcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purrate-tab0" onclick="toggleFilterPanel(event,'tab0','purrate')">필터<span class="af-badge" data-key="purrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pv-tab0" onclick="toggleFilterPanel(event,'tab0','pv')">필터<span class="af-badge" data-key="pv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-roas-tab0" onclick="toggleFilterPanel(event,'tab0','roas')">필터<span class="af-badge" data-key="roas"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mcart-tab0" onclick="toggleFilterPanel(event,'tab0','mcart')">필터<span class="af-badge" data-key="mcart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mreg-tab0" onclick="toggleFilterPanel(event,'tab0','mreg')">필터<span class="af-badge" data-key="mreg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpur-tab0" onclick="toggleFilterPanel(event,'tab0','mpur')">필터<span class="af-badge" data-key="mpur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpv-tab0" onclick="toggleFilterPanel(event,'tab0','mpv')">필터<span class="af-badge" data-key="mpv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mroas-tab0" onclick="toggleFilterPanel(event,'tab0','mroas')">필터<span class="af-badge" data-key="mroas"></span> ▾</button></th>
@@ -262,12 +262,13 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <select id="campaign-filter-tab1" onchange="onCampaignFilterChange('tab1')"><option value="__all__">전체 캠페인</option></select>
   </div>
   <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab1"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab1"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab1"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
-  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab1" onclick="toggleFilterRow('tab1')">필터 행 숨기기</button></div>
+  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab1" onclick="toggleFilterRow('tab1')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab1" onclick="toggleColGroup('tab1','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab1" onclick="toggleColGroup('tab1','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab1" onclick="toggleColGroup('tab1','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
     
-    <colgroup><col style="width:64px"><col style="width:140px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"></colgroup>
+    <colgroup><col data-group="id" style="width:88px"><col data-group="id" style="width:140px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"></colgroup>
     <thead id="thead-tab1">
+      <tr class="group-header-row"><th colspan="2" class="group-th group-th-id">구분</th><th colspan="5" class="group-th">매체 주요지표</th><th colspan="9" class="group-th">매체 전환지표</th><th colspan="5" class="group-th">믹스패널 전환지표</th></tr>
       <tr><th>소재<span class="col-resize-handle" data-tab="tab1" data-col="0"></span></th><th class="sortable" data-key="ad_name" data-label="소재 이름" onclick="onSortClick('tab1','ad_name')">소재 이름<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="1"></span></th><th class="sortable" data-key="imp" data-label="노출" onclick="onSortClick('tab1','imp')">노출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="2"></span></th><th class="sortable" data-key="clk" data-label="클릭" onclick="onSortClick('tab1','clk')">클릭<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="3"></span></th><th class="sortable" data-key="ctr" data-label="CTR" onclick="onSortClick('tab1','ctr')">CTR<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="4"></span></th><th class="sortable" data-key="cpc" data-label="CPC" onclick="onSortClick('tab1','cpc')">CPC<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="5"></span></th><th class="sortable" data-key="sp" data-label="광고비" onclick="onSortClick('tab1','sp')">광고비<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="6"></span></th><th class="sortable" data-key="cart" data-label="장바구니담기" onclick="onSortClick('tab1','cart')">장바구니담기<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="7"></span></th><th class="sortable" data-key="reg" data-label="회원가입" onclick="onSortClick('tab1','reg')">회원가입<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="8"></span></th><th class="sortable" data-key="regcpa" data-label="가입CPA" onclick="onSortClick('tab1','regcpa')">가입CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="9"></span></th><th class="sortable" data-key="regrate" data-label="가입율" onclick="onSortClick('tab1','regrate')">가입율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="10"></span></th><th class="sortable" data-key="pur" data-label="구매전환" onclick="onSortClick('tab1','pur')">구매전환<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="11"></span></th><th class="sortable" data-key="purcpa" data-label="구매전환CPA" onclick="onSortClick('tab1','purcpa')">구매전환CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="12"></span></th><th class="sortable" data-key="purrate" data-label="구매전환율" onclick="onSortClick('tab1','purrate')">구매전환율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="13"></span></th><th class="sortable" data-key="pv" data-label="매출" onclick="onSortClick('tab1','pv')">매출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="14"></span></th><th class="sortable" data-key="roas" data-label="ROAS" onclick="onSortClick('tab1','roas')">ROAS<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="15"></span></th><th class="sortable col-mp-first-th" data-key="mcart" data-label="장바구니(믹스)" onclick="onSortClick('tab1','mcart')">장바구니(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="16"></span></th><th class="sortable" data-key="mreg" data-label="회원가입(믹스)" onclick="onSortClick('tab1','mreg')">회원가입(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="17"></span></th><th class="sortable" data-key="mpur" data-label="구매전환(믹스)" onclick="onSortClick('tab1','mpur')">구매전환(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="18"></span></th><th class="sortable" data-key="mpv" data-label="매출(믹스)" onclick="onSortClick('tab1','mpv')">매출(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="19"></span></th><th class="sortable" data-key="mroas" data-label="ROAS(믹스)" onclick="onSortClick('tab1','mroas')">ROAS(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab1" data-col="20"></span></th></tr>
       <tr class="filter-row">
         <th><button type="button" class="af-btn" id="af-btn-ad_name-tab1" onclick="toggleFilterPanel(event,'tab1','ad_name')">필터<span class="af-badge" data-key="ad_name"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-campaign-tab1" onclick="toggleFilterPanel(event,'tab1','campaign')">필터<span class="af-badge" data-key="campaign"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-imp-tab1" onclick="toggleFilterPanel(event,'tab1','imp')">필터<span class="af-badge" data-key="imp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-clk-tab1" onclick="toggleFilterPanel(event,'tab1','clk')">필터<span class="af-badge" data-key="clk"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-ctr-tab1" onclick="toggleFilterPanel(event,'tab1','ctr')">필터<span class="af-badge" data-key="ctr"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cpc-tab1" onclick="toggleFilterPanel(event,'tab1','cpc')">필터<span class="af-badge" data-key="cpc"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-sp-tab1" onclick="toggleFilterPanel(event,'tab1','sp')">필터<span class="af-badge" data-key="sp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cart-tab1" onclick="toggleFilterPanel(event,'tab1','cart')">필터<span class="af-badge" data-key="cart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-reg-tab1" onclick="toggleFilterPanel(event,'tab1','reg')">필터<span class="af-badge" data-key="reg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regcpa-tab1" onclick="toggleFilterPanel(event,'tab1','regcpa')">필터<span class="af-badge" data-key="regcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regrate-tab1" onclick="toggleFilterPanel(event,'tab1','regrate')">필터<span class="af-badge" data-key="regrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pur-tab1" onclick="toggleFilterPanel(event,'tab1','pur')">필터<span class="af-badge" data-key="pur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purcpa-tab1" onclick="toggleFilterPanel(event,'tab1','purcpa')">필터<span class="af-badge" data-key="purcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purrate-tab1" onclick="toggleFilterPanel(event,'tab1','purrate')">필터<span class="af-badge" data-key="purrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pv-tab1" onclick="toggleFilterPanel(event,'tab1','pv')">필터<span class="af-badge" data-key="pv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-roas-tab1" onclick="toggleFilterPanel(event,'tab1','roas')">필터<span class="af-badge" data-key="roas"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mcart-tab1" onclick="toggleFilterPanel(event,'tab1','mcart')">필터<span class="af-badge" data-key="mcart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mreg-tab1" onclick="toggleFilterPanel(event,'tab1','mreg')">필터<span class="af-badge" data-key="mreg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpur-tab1" onclick="toggleFilterPanel(event,'tab1','mpur')">필터<span class="af-badge" data-key="mpur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpv-tab1" onclick="toggleFilterPanel(event,'tab1','mpv')">필터<span class="af-badge" data-key="mpv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mroas-tab1" onclick="toggleFilterPanel(event,'tab1','mroas')">필터<span class="af-badge" data-key="mroas"></span> ▾</button></th>
@@ -291,12 +292,13 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
     <select id="campaign-filter-tab2" onchange="onCampaignFilterChange('tab2')"><option value="__all__">전체 캠페인</option></select>
   </div>
   <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab2"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab2"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab2"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
-  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab2" onclick="toggleFilterRow('tab2')">필터 행 숨기기</button></div>
+  <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab2" onclick="toggleFilterRow('tab2')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab2" onclick="toggleColGroup('tab2','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab2" onclick="toggleColGroup('tab2','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab2" onclick="toggleColGroup('tab2','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
     
-    <colgroup><col style="width:64px"><col style="width:140px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"><col style="width:74px"></colgroup>
+    <colgroup><col data-group="id" style="width:88px"><col data-group="id" style="width:140px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"></colgroup>
     <thead id="thead-tab2">
+      <tr class="group-header-row"><th colspan="2" class="group-th group-th-id">구분</th><th colspan="5" class="group-th">매체 주요지표</th><th colspan="9" class="group-th">매체 전환지표</th><th colspan="5" class="group-th">믹스패널 전환지표</th></tr>
       <tr><th>소재<span class="col-resize-handle" data-tab="tab2" data-col="0"></span></th><th class="sortable" data-key="ad_name" data-label="소재 이름" onclick="onSortClick('tab2','ad_name')">소재 이름<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="1"></span></th><th class="sortable" data-key="imp" data-label="노출" onclick="onSortClick('tab2','imp')">노출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="2"></span></th><th class="sortable" data-key="clk" data-label="클릭" onclick="onSortClick('tab2','clk')">클릭<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="3"></span></th><th class="sortable" data-key="ctr" data-label="CTR" onclick="onSortClick('tab2','ctr')">CTR<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="4"></span></th><th class="sortable" data-key="cpc" data-label="CPC" onclick="onSortClick('tab2','cpc')">CPC<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="5"></span></th><th class="sortable" data-key="sp" data-label="광고비" onclick="onSortClick('tab2','sp')">광고비<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="6"></span></th><th class="sortable" data-key="cart" data-label="장바구니담기" onclick="onSortClick('tab2','cart')">장바구니담기<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="7"></span></th><th class="sortable" data-key="reg" data-label="회원가입" onclick="onSortClick('tab2','reg')">회원가입<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="8"></span></th><th class="sortable" data-key="regcpa" data-label="가입CPA" onclick="onSortClick('tab2','regcpa')">가입CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="9"></span></th><th class="sortable" data-key="regrate" data-label="가입율" onclick="onSortClick('tab2','regrate')">가입율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="10"></span></th><th class="sortable" data-key="pur" data-label="구매전환" onclick="onSortClick('tab2','pur')">구매전환<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="11"></span></th><th class="sortable" data-key="purcpa" data-label="구매전환CPA" onclick="onSortClick('tab2','purcpa')">구매전환CPA<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="12"></span></th><th class="sortable" data-key="purrate" data-label="구매전환율" onclick="onSortClick('tab2','purrate')">구매전환율<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="13"></span></th><th class="sortable" data-key="pv" data-label="매출" onclick="onSortClick('tab2','pv')">매출<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="14"></span></th><th class="sortable" data-key="roas" data-label="ROAS" onclick="onSortClick('tab2','roas')">ROAS<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="15"></span></th><th class="sortable col-mp-first-th" data-key="mcart" data-label="장바구니(믹스)" onclick="onSortClick('tab2','mcart')">장바구니(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="16"></span></th><th class="sortable" data-key="mreg" data-label="회원가입(믹스)" onclick="onSortClick('tab2','mreg')">회원가입(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="17"></span></th><th class="sortable" data-key="mpur" data-label="구매전환(믹스)" onclick="onSortClick('tab2','mpur')">구매전환(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="18"></span></th><th class="sortable" data-key="mpv" data-label="매출(믹스)" onclick="onSortClick('tab2','mpv')">매출(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="19"></span></th><th class="sortable" data-key="mroas" data-label="ROAS(믹스)" onclick="onSortClick('tab2','mroas')">ROAS(믹스)<span class="sort-arrow"></span><span class="col-resize-handle" data-tab="tab2" data-col="20"></span></th></tr>
       <tr class="filter-row">
         <th><button type="button" class="af-btn" id="af-btn-ad_name-tab2" onclick="toggleFilterPanel(event,'tab2','ad_name')">필터<span class="af-badge" data-key="ad_name"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-campaign-tab2" onclick="toggleFilterPanel(event,'tab2','campaign')">필터<span class="af-badge" data-key="campaign"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-imp-tab2" onclick="toggleFilterPanel(event,'tab2','imp')">필터<span class="af-badge" data-key="imp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-clk-tab2" onclick="toggleFilterPanel(event,'tab2','clk')">필터<span class="af-badge" data-key="clk"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-ctr-tab2" onclick="toggleFilterPanel(event,'tab2','ctr')">필터<span class="af-badge" data-key="ctr"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cpc-tab2" onclick="toggleFilterPanel(event,'tab2','cpc')">필터<span class="af-badge" data-key="cpc"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-sp-tab2" onclick="toggleFilterPanel(event,'tab2','sp')">필터<span class="af-badge" data-key="sp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cart-tab2" onclick="toggleFilterPanel(event,'tab2','cart')">필터<span class="af-badge" data-key="cart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-reg-tab2" onclick="toggleFilterPanel(event,'tab2','reg')">필터<span class="af-badge" data-key="reg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regcpa-tab2" onclick="toggleFilterPanel(event,'tab2','regcpa')">필터<span class="af-badge" data-key="regcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regrate-tab2" onclick="toggleFilterPanel(event,'tab2','regrate')">필터<span class="af-badge" data-key="regrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pur-tab2" onclick="toggleFilterPanel(event,'tab2','pur')">필터<span class="af-badge" data-key="pur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purcpa-tab2" onclick="toggleFilterPanel(event,'tab2','purcpa')">필터<span class="af-badge" data-key="purcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purrate-tab2" onclick="toggleFilterPanel(event,'tab2','purrate')">필터<span class="af-badge" data-key="purrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pv-tab2" onclick="toggleFilterPanel(event,'tab2','pv')">필터<span class="af-badge" data-key="pv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-roas-tab2" onclick="toggleFilterPanel(event,'tab2','roas')">필터<span class="af-badge" data-key="roas"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mcart-tab2" onclick="toggleFilterPanel(event,'tab2','mcart')">필터<span class="af-badge" data-key="mcart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mreg-tab2" onclick="toggleFilterPanel(event,'tab2','mreg')">필터<span class="af-badge" data-key="mreg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpur-tab2" onclick="toggleFilterPanel(event,'tab2','mpur')">필터<span class="af-badge" data-key="mpur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mpv-tab2" onclick="toggleFilterPanel(event,'tab2','mpv')">필터<span class="af-badge" data-key="mpv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-mroas-tab2" onclick="toggleFilterPanel(event,'tab2','mroas')">필터<span class="af-badge" data-key="mroas"></span> ▾</button></th>
@@ -333,6 +335,63 @@ function initSidebarState() {
     }
   } catch (e) {}
 }
+
+function toggleColGroup(tabId, group) {
+  const thead = document.getElementById('thead-' + tabId);
+  const table = thead.closest('table');
+  const cols = table.querySelectorAll('colgroup col[data-group="' + group + '"]');
+  if (!cols.length) return;
+  const wasCollapsed = cols[0].classList.contains('col-collapsed');
+  cols.forEach(function(c) { c.classList.toggle('col-collapsed', !wasCollapsed); });
+  const btn = document.getElementById('grouptoggle-' + group + '-' + tabId);
+  if (btn) {
+    btn.classList.toggle('active', !wasCollapsed);
+    const caret = btn.querySelector('[data-group-caret]');
+    if (caret) caret.textContent = wasCollapsed ? '▾' : '▸';
+  }
+}
+
+function ensureImagePreviewEl() {
+  let el = document.getElementById('ov-img-preview');
+  if (!el) {
+    el = document.createElement('img');
+    el.id = 'ov-img-preview';
+    el.className = 'ov-img-preview';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+
+function positionImagePreview(evt) {
+  const el = document.getElementById('ov-img-preview');
+  if (!el || el.style.display === 'none') return;
+  const pad = 16;
+  let x = evt.clientX + pad, y = evt.clientY + pad;
+  const rect = el.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth) x = evt.clientX - rect.width - pad;
+  if (y + rect.height > window.innerHeight) y = evt.clientY - rect.height - pad;
+  el.style.left = x + 'px';
+  el.style.top = y + 'px';
+}
+
+function hideImagePreview() {
+  const el = document.getElementById('ov-img-preview');
+  if (el) el.style.display = 'none';
+}
+
+function initImageHoverZoom() {
+  document.addEventListener('mousemove', function(evt) {
+    const target = evt.target.closest('img.thumb, img.ov-top5-thumb');
+    if (target && target.getAttribute('src')) {
+      const el = ensureImagePreviewEl();
+      if (el.src !== target.src) el.src = target.src;
+      el.style.display = 'block';
+      positionImagePreview(evt);
+    } else {
+      hideImagePreview();
+    }
+  });
+}
 function onOverviewPhaseChange(el) {
   var group = document.getElementById('ov-phase-group');
   var chips = Array.prototype.slice.call(group.querySelectorAll('.ov-phase-chip'));
@@ -348,9 +407,6 @@ function onOverviewPhaseChange(el) {
   applyPhaseDefaultDateRange();
   refreshOverviewAll();
 }
-
-const CHART_BLUE = '#2952e3';
-const CHART_ORANGE = '#eb6834';
 
 function svgEl(tag, attrs) {
   const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
@@ -544,7 +600,7 @@ function renderComboChart(containerId, rows, spec) {
     '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + spec.lineColor + '"></span>' + spec.lineLabel + '</span>';
 }
 
-const CATEGORICAL_COLORS = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#4a3aa7', '#e34948'];
+const CATEGORICAL_COLORS = ['#5b7fdb', '#e0935f', '#4fb3a9', '#c9a15a', '#b98fc7', '#7fb069', '#d4788a', '#8c8c9e'];
 function colorForIndex(i) { return CATEGORICAL_COLORS[i % CATEGORICAL_COLORS.length]; }
 
 function computeCampaignAgg(rows) {
@@ -601,14 +657,15 @@ function renderCampaignLegend(containerId, campaigns) {
 function computeCreativeAgg(rows) {
   const grouped = {};
   rows.forEach(function(r) {
-    if (!grouped[r.n]) grouped[r.n] = { name: r.n, sp: 0, clk: 0, mpur: 0, mpv: 0 };
+    if (!grouped[r.n]) grouped[r.n] = { name: r.n, imp: 0, clk: 0, sp: 0, mpur: 0, mpv: 0 };
     const g = grouped[r.n];
-    g.sp += r.sp; g.clk += r.clk; g.mpur += (r.mpur || 0); g.mpv += (r.mpv || 0);
+    g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.mpur += (r.mpur || 0); g.mpv += (r.mpv || 0);
   });
   return Object.keys(grouped).map(function(n) {
     const g = grouped[n];
     return {
-      name: g.name, sp: g.sp,
+      name: g.name, sp: g.sp, clk: g.clk,
+      ctr: g.imp ? g.clk / g.imp * 100 : 0,
       mpurrate: g.clk ? g.mpur / g.clk * 100 : 0,
       mroas: g.sp ? g.mpv / g.sp : 0,
     };
@@ -624,45 +681,53 @@ function findCreativeImage(name) {
   return null;
 }
 
-function renderRankedBars(containerId, items, opts) {
+function renderTop5List(containerId, items) {
   const container = document.getElementById(containerId);
   if (!items.length) { container.innerHTML = '<div class="ov-placeholder">조건에 맞는 소재가 없습니다(누적 광고비 10만원 이상)</div>'; return; }
-  const maxVal = Math.max.apply(null, items.map(function(it) { return it.value; })) || 1;
   container.innerHTML = items.map(function(it, i) {
-    const pct = Math.max(2, it.value / maxVal * 100);
     const img = findCreativeImage(it.name);
-    const thumb = img ? '<img class="ov-rank-thumb" src="' + img + '" alt="">' : '<div class="ov-rank-thumb-empty"></div>';
-    return '<div class="ov-rank-row">' +
-      '<div class="ov-rank-head">' + thumb + '<span class="ov-rank-idx">' + (i + 1) + '</span>' +
-      '<span class="ov-rank-name" title="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + '</span>' +
-      '<span class="ov-rank-value">' + opts.fmt(it.value) + '</span></div>' +
-      '<div class="ov-rank-bar-track"><div class="ov-rank-bar-fill" style="width:' + pct + '%;background:' + opts.color + '"></div></div>' +
+    const thumb = img ? '<img class="ov-top5-thumb" src="' + img + '" alt="">' : '<div class="ov-top5-thumb-empty"></div>';
+    return '<div class="ov-top5-row">' +
+      '<div class="ov-top5-idx">' + (i + 1) + '</div>' +
+      thumb +
+      '<div class="ov-top5-body">' +
+        '<div class="ov-top5-name" title="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + '</div>' +
+        '<div class="ov-top5-metrics">' +
+          '<span>클릭 <b>' + fmtInt(it.clk) + '</b></span>' +
+          '<span>광고비 <b>' + fmtWon(it.sp) + '</b></span>' +
+          '<span>CTR <b>' + fmtPct(it.ctr) + '</b></span>' +
+          '<span>CVR <b>' + fmtPct(it.mpurrate) + '</b></span>' +
+          '<span>ROAS <b>' + fmtRoas(it.mroas) + '</b></span>' +
+        '</div>' +
+      '</div>' +
       '</div>';
   }).join('');
 }
 
 const PHASE_BUDGET = 10000000;
 
-function renderBudgetProgress(containerId) {
-  const el = document.getElementById(containerId);
-  const tabIds = Object.keys(TABS).filter(function(tabId) { return !TABS[tabId].isRegionTab; });
-  el.innerHTML = tabIds.map(function(tabId, i) {
-    const t = TABS[tabId];
-    const spent = (t.rows || []).reduce(function(s, r) { return s + r.sp; }, 0);
-    const pctRaw = spent / PHASE_BUDGET * 100;
-    const pct = Math.max(0, Math.min(100, pctRaw));
-    const color = pctRaw > 100 ? '#e34948' : colorForIndex(i);
-    return '<div class="ov-budget-row">' +
-      '<div class="ov-budget-head"><span class="ov-budget-label">' + escapeHtml(t.label) + '</span>' +
-      '<span class="ov-budget-value">' + fmtWon(spent) + ' / ' + fmtWon(PHASE_BUDGET) + ' (' + pctRaw.toFixed(1) + '%)</span></div>' +
-      '<div class="ov-rank-bar-track"><div class="ov-rank-bar-fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
-      '</div>';
-  }).join('');
+function updateOverviewBudgetCells() {
+  const deliveryCard = document.getElementById('scorecard-delivery-ov');
+  deliveryCard.querySelectorAll('.score-cell-budget').forEach(function(el) { el.remove(); });
+  const group = document.getElementById('ov-phase-group');
+  const checked = Array.prototype.slice.call(group.querySelectorAll('input:checked')).map(function(i) { return i.value; });
+  if (checked.indexOf('전체') !== -1) return;
+  checked.forEach(function(label) {
+    const tabId = Object.keys(TABS).find(function(id) { return TABS[id].label === label; });
+    if (!tabId) return;
+    const spent = (TABS[tabId].rows || []).reduce(function(s, r) { return s + r.sp; }, 0);
+    const pct = spent / PHASE_BUDGET * 100;
+    const cell = document.createElement('div');
+    cell.className = 'score-cell score-cell-budget';
+    cell.innerHTML = '<div class="score-label">예산진척률(' + escapeHtml(label) + ')</div>' +
+      '<div class="score-value"' + (pct > 100 ? ' style="color:#c0392b"' : '') + '>' + pct.toFixed(1) + '%</div>';
+    deliveryCard.appendChild(cell);
+  });
 }
 
 const CREATIVE_MIN_SPEND = 100000;
-const COMBO_SPEC_A = { barKey: 'sp', barFmt: fmtWon, barLabel: '광고비', lineKey: 'ctr', lineFmt: fmtPct, lineLabel: 'CTR', barColorTop: '#86b6ef', barColorBottom: '#1c5cab', lineColor: '#eb6834' };
-const COMBO_SPEC_B = { barKey: 'clk', barFmt: fmtInt, barLabel: '클릭', lineKey: 'purrate', lineFmt: fmtPct, lineLabel: '구매전환율', barColorTop: '#7ee0c0', barColorBottom: '#0f8a5e', lineColor: '#4a3aa7' };
+const COMBO_SPEC_A = { barKey: 'sp', barFmt: fmtWon, barLabel: '광고비', lineKey: 'ctr', lineFmt: fmtPct, lineLabel: 'CTR', barColorTop: '#aac3ea', barColorBottom: '#4a6fa5', lineColor: '#d98a5f' };
+const COMBO_SPEC_B = { barKey: 'clk', barFmt: fmtInt, barLabel: '클릭', lineKey: 'purrate', lineFmt: fmtPct, lineLabel: '구매전환율', barColorTop: '#9fd6c4', barColorBottom: '#3f8f74', lineColor: '#9b7fc4' };
 
 function refreshOverviewAll() {
   const rows = overviewFilteredRows();
@@ -687,11 +752,11 @@ function refreshOverviewAll() {
 
   const creativeAgg = computeCreativeAgg(rows).filter(function(c) { return c.sp >= CREATIVE_MIN_SPEND; });
   const cvrTop = creativeAgg.slice().sort(function(a, b) { return b.mpurrate - a.mpurrate; }).slice(0, 5);
-  const roasTop = creativeAgg.slice().sort(function(a, b) { return b.mroas - a.mroas; }).slice(0, 5);
-  renderRankedBars('ov-cvr-top', cvrTop.map(function(c) { return { name: c.name, value: c.mpurrate }; }), { fmt: fmtPct, color: CHART_BLUE });
-  renderRankedBars('ov-roas-top', roasTop.map(function(c) { return { name: c.name, value: c.mroas }; }), { fmt: fmtRoas, color: CHART_ORANGE });
+  const ctrTop = creativeAgg.slice().sort(function(a, b) { return b.ctr - a.ctr; }).slice(0, 5);
+  renderTop5List('ov-cvr-top', cvrTop);
+  renderTop5List('ov-ctr-top', ctrTop);
 
-  renderBudgetProgress('ov-budget-progress');
+  updateOverviewBudgetCells();
 }
 
 function applyOverviewDatePreset(preset) {
@@ -1440,7 +1505,7 @@ function updateScorecard(tabId, totals, hasC20) {
   }
 }
 
-window.addEventListener('DOMContentLoaded', function() { initSidebarState();initTab('tab0');initTab('tab1');initTab('tab2');initOverviewDate(); });
+window.addEventListener('DOMContentLoaded', function() { initSidebarState();initImageHoverZoom();initTab('tab0');initTab('tab1');initTab('tab2');initOverviewDate(); });
 window.addEventListener('resize', function() {
   if (document.getElementById('page-overview').classList.contains('active')) refreshOverviewAll();
 });

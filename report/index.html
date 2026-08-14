@@ -37,6 +37,14 @@ body { font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", -apple-
 .ov-legend-item { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; color: #5b6b82; }
 .ov-legend-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
 .ov-tooltip { position: fixed; display: none; background: #1a1a1a; color: #fff; font-size: 11.5px; line-height: 1.5; padding: 6px 9px; border-radius: 6px; pointer-events: none; z-index: 1000; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.18); }
+.ov-rank-row { margin-bottom: 10px; }
+.ov-rank-row:last-child { margin-bottom: 0; }
+.ov-rank-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.ov-rank-idx { flex: 0 0 16px; font-size: 11.5px; font-weight: 800; color: #9aa3b2; }
+.ov-rank-name { flex: 1 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12.5px; color: #333; }
+.ov-rank-value { flex: 0 0 auto; font-size: 12.5px; font-weight: 700; color: #333; }
+.ov-rank-bar-track { height: 7px; background: #f1f3f7; border-radius: 4px; overflow: hidden; }
+.ov-rank-bar-fill { height: 100%; border-radius: 4px; }
 .report-header { margin-bottom: 20px; }
 .report-header h1 { margin: 0 0 4px; font-size: 22px; }
 .report-header p { margin: 0; color: #666; font-size: 14px; }
@@ -164,7 +172,20 @@ table.creative-table { width: 100%; border-collapse: collapse; background: #fff;
   </div>
   <div class="ov-section">
     <h2>캠페인 통합 성과</h2>
-    <div class="ov-placeholder">차수별 비교 + 믹스패널 기준 구매전환율·ROAS 상위 소재 — 다음 단계에서 채웁니다</div>
+    <div class="ov-chart-box" style="margin-bottom: 16px;">
+      <h3>차수별 광고비 비교 (선택한 기간 내, 차수 필터와 무관하게 항상 3개 전부 표시)</h3>
+      <div id="ov-campaign-bar"></div>
+    </div>
+    <div class="ov-chart-row">
+      <div class="ov-chart-box">
+        <h3>믹스패널 기준 구매전환율 TOP5 (누적 광고비 10만원 이상 소재만)</h3>
+        <div class="ov-rank-list" id="ov-cvr-top"></div>
+      </div>
+      <div class="ov-chart-box">
+        <h3>믹스패널 기준 ROAS TOP5 (누적 광고비 10만원 이상 소재만)</h3>
+        <div class="ov-rank-list" id="ov-roas-top"></div>
+      </div>
+    </div>
   </div>
 </div>
     <div class="page" id="page-creative">
@@ -516,6 +537,85 @@ function renderLineChart(containerId, rows) {
     '<span class="ov-legend-item"><span class="ov-legend-dot" style="background:' + CHART_ORANGE + '"></span>구매전환율</span>';
 }
 
+function allPhaseRowsInDateRange() {
+  const start = fieldVal('start-ov'), end = fieldVal('end-ov');
+  const byPhase = {};
+  Object.keys(TABS).forEach(function(tabId) {
+    const t = TABS[tabId];
+    if (t.isRegionTab) return;
+    if (!byPhase[t.label]) byPhase[t.label] = [];
+    (t.rows || []).forEach(function(r) {
+      if (r.d >= start && r.d <= end) byPhase[t.label].push(r);
+    });
+  });
+  return byPhase;
+}
+
+function renderPhaseBarChart(containerId, categories) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  if (!categories.length) { container.innerHTML = '<div class="ov-placeholder">선택한 기간에 데이터가 없습니다</div>'; return; }
+  const W = container.clientWidth || 480, H = 200, padL = 46, padB = 26, padT = 8, padR = 8;
+  const innerW = W - padL - padR, innerH = H - padT - padB;
+  const maxVal = Math.max(1, Math.max.apply(null, categories.map(function(c) { return c.value; })));
+  const slot = innerW / categories.length;
+  const barW = Math.min(64, slot * 0.5);
+  const svg = svgEl('svg', { viewBox: '0 0 ' + W + ' ' + H, width: '100%', height: H, class: 'ov-chart-svg' });
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + innerH - (innerH * i / 4);
+    svg.appendChild(svgEl('line', { x1: padL, x2: W - padR, y1: y, y2: y, stroke: '#e8ecf3', 'stroke-width': 1 }));
+    const label = svgEl('text', { x: padL - 6, y: y + 3, 'text-anchor': 'end', 'font-size': 10, fill: '#9aa3b2' });
+    label.textContent = fmtCompact(maxVal * i / 4);
+    svg.appendChild(label);
+  }
+  categories.forEach(function(c, i) {
+    const x = padL + i * slot + (slot - barW) / 2;
+    const h = maxVal ? (c.value / maxVal) * innerH : 0;
+    const y = padT + innerH - h;
+    const rect = svgEl('rect', { x: x, y: y, width: barW, height: Math.max(h, 0), rx: 4, ry: 4, fill: CHART_BLUE });
+    attachTooltip(rect, function() { return c.label + ' · 광고비 ' + fmtWon(c.value); });
+    svg.appendChild(rect);
+    const t = svgEl('text', { x: padL + i * slot + slot / 2, y: H - 8, 'text-anchor': 'middle', 'font-size': 11, fill: '#5b6b82', 'font-weight': 700 });
+    t.textContent = c.label;
+    svg.appendChild(t);
+  });
+  container.appendChild(svg);
+}
+
+function computeCreativeAgg(rows) {
+  const grouped = {};
+  rows.forEach(function(r) {
+    if (!grouped[r.n]) grouped[r.n] = { name: r.n, sp: 0, clk: 0, mpur: 0, mpv: 0 };
+    const g = grouped[r.n];
+    g.sp += r.sp; g.clk += r.clk; g.mpur += (r.mpur || 0); g.mpv += (r.mpv || 0);
+  });
+  return Object.keys(grouped).map(function(n) {
+    const g = grouped[n];
+    return {
+      name: g.name, sp: g.sp,
+      mpurrate: g.clk ? g.mpur / g.clk * 100 : 0,
+      mroas: g.sp ? g.mpv / g.sp : 0,
+    };
+  });
+}
+
+function renderRankedBars(containerId, items, opts) {
+  const container = document.getElementById(containerId);
+  if (!items.length) { container.innerHTML = '<div class="ov-placeholder">조건에 맞는 소재가 없습니다(누적 광고비 10만원 이상)</div>'; return; }
+  const maxVal = Math.max.apply(null, items.map(function(it) { return it.value; })) || 1;
+  container.innerHTML = items.map(function(it, i) {
+    const pct = Math.max(2, it.value / maxVal * 100);
+    return '<div class="ov-rank-row">' +
+      '<div class="ov-rank-head"><span class="ov-rank-idx">' + (i + 1) + '</span>' +
+      '<span class="ov-rank-name" title="' + escapeHtml(it.name) + '">' + escapeHtml(it.name) + '</span>' +
+      '<span class="ov-rank-value">' + opts.fmt(it.value) + '</span></div>' +
+      '<div class="ov-rank-bar-track"><div class="ov-rank-bar-fill" style="width:' + pct + '%;background:' + opts.color + '"></div></div>' +
+      '</div>';
+  }).join('');
+}
+
+const CREATIVE_MIN_SPEND = 100000;
+
 function refreshOverviewAll() {
   const rows = overviewFilteredRows();
   updateScorecard('ov', computeOverviewTotals(rows), false);
@@ -525,6 +625,18 @@ function refreshOverviewAll() {
   const weekly = computeWeeklyRows(rows);
   renderBarChart('ov-weekly-bar', weekly);
   renderLineChart('ov-weekly-line', weekly);
+
+  const phaseRows = allPhaseRowsInDateRange();
+  const phaseCats = Object.keys(phaseRows).map(function(label) {
+    return { label: label, value: phaseRows[label].reduce(function(s, r) { return s + r.sp; }, 0) };
+  });
+  renderPhaseBarChart('ov-campaign-bar', phaseCats);
+
+  const creativeAgg = computeCreativeAgg(rows).filter(function(c) { return c.sp >= CREATIVE_MIN_SPEND; });
+  const cvrTop = creativeAgg.slice().sort(function(a, b) { return b.mpurrate - a.mpurrate; }).slice(0, 5);
+  const roasTop = creativeAgg.slice().sort(function(a, b) { return b.mroas - a.mroas; }).slice(0, 5);
+  renderRankedBars('ov-cvr-top', cvrTop.map(function(c) { return { name: c.name, value: c.mpurrate }; }), { fmt: fmtPct, color: CHART_BLUE });
+  renderRankedBars('ov-roas-top', roasTop.map(function(c) { return { name: c.name, value: c.mroas }; }), { fmt: fmtRoas, color: CHART_ORANGE });
 }
 
 function applyOverviewDatePreset(preset) {

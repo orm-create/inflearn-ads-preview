@@ -66,6 +66,9 @@ body { font-family: "Pretendard Variable", "Pretendard", -apple-system, "Apple S
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
 .scorecard-group { margin: 18px 0; }
+.scorecard-toggle-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; margin-bottom: 6px; border: 1px solid #d8dce3; border-radius: 8px; background: #fff; font-size: 12.5px; color: #555; cursor: pointer; }
+.scorecard-toggle-btn:hover { background: #eef1f6; }
+.scorecard-group-body.collapsed { display: none; }
 .scorecard-label { font-size: 12px; font-weight: 700; color: #8a93a3; margin: 10px 0 6px; text-transform: uppercase; letter-spacing: .03em; }
 .scorecard-label:first-child { margin-top: 0; }
 .scorecard { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
@@ -209,7 +212,7 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
   <div class="ov-section">
     <h2>핵심 지표 (매체 · 믹스패널 기준)</h2>
     <p style="font-size: 12px; color: #9aa3b2; margin: -4px 0 8px;">차수를 하나 이상 개별 선택하면(전체 제외) 기본 지표 줄에 예산 진척률 카드가 함께 표시됩니다.</p>
-    <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-ov"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-ov"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-ov"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
+    <div class="scorecard-group" id="scorecard-group-ov"><button type="button" class="scorecard-toggle-btn" onclick="toggleScorecardGroup('ov')">지표 접기/펼치기 <span class="scorecard-toggle-caret" id="scorecard-toggle-caret-ov">▾</span></button><div class="scorecard-group-body" id="scorecard-group-body-ov"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-ov"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-ov"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-ov"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div></div>
   </div>
   <div class="ov-section">
     <h2>데일리 성과</h2>
@@ -289,16 +292,6 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
       <div class="ov-chart-box ov-chart-box-sm"><h3>매출(믹스)</h3><div id="ov-cmp-mpv"></div></div>
       <div class="ov-chart-box ov-chart-box-sm"><h3>ROAS(믹스)</h3><div id="ov-cmp-mroas"></div></div>
     </div>
-    <div class="ov-chart-row" style="margin-top: 16px;">
-      <div class="ov-chart-box">
-        <h3>구매전환율(믹스패널) TOP5 (누적 광고비 5만원 이상 소재만)</h3>
-        <div class="ov-top5-list" id="ov-cvr-top"></div>
-      </div>
-      <div class="ov-chart-box">
-        <h3>CTR TOP5 (누적 광고비 5만원 이상 소재만)</h3>
-        <div class="ov-top5-list" id="ov-ctr-top"></div>
-      </div>
-    </div>
   </div>
 </div>
     <div class="page" id="page-creative">
@@ -327,7 +320,17 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
       <label class="ov-phase-chip" data-platform="google"><input type="checkbox" value="google" onchange="onCreativePlatformChange('tab0', this)">Google</label>
     </div>
   </div>
-  <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab0"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab0"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab0"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
+  <div class="scorecard-group" id="scorecard-group-tab0"><button type="button" class="scorecard-toggle-btn" onclick="toggleScorecardGroup('tab0')">지표 접기/펼치기 <span class="scorecard-toggle-caret" id="scorecard-toggle-caret-tab0">▾</span></button><div class="scorecard-group-body" id="scorecard-group-body-tab0"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab0"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab0"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab0"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div></div>
+  <div class="ov-chart-row" style="margin: 16px 0;">
+    <div class="ov-chart-box">
+      <h3>구매전환율(믹스패널) TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-cvr-tab0"></div>
+    </div>
+    <div class="ov-chart-box">
+      <h3>CTR TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-ctr-tab0"></div>
+    </div>
+  </div>
   <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab0" onclick="toggleFilterRow('tab0')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab0" onclick="toggleColGroup('tab0','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab0" onclick="toggleColGroup('tab0','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab0" onclick="toggleColGroup('tab0','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
@@ -363,7 +366,17 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
       <label class="ov-phase-chip" data-platform="google"><input type="checkbox" value="google" onchange="onCreativePlatformChange('tab1', this)">Google</label>
     </div>
   </div>
-  <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab1"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab1"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab1"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
+  <div class="scorecard-group" id="scorecard-group-tab1"><button type="button" class="scorecard-toggle-btn" onclick="toggleScorecardGroup('tab1')">지표 접기/펼치기 <span class="scorecard-toggle-caret" id="scorecard-toggle-caret-tab1">▾</span></button><div class="scorecard-group-body" id="scorecard-group-body-tab1"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab1"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab1"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab1"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div></div>
+  <div class="ov-chart-row" style="margin: 16px 0;">
+    <div class="ov-chart-box">
+      <h3>구매전환율(믹스패널) TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-cvr-tab1"></div>
+    </div>
+    <div class="ov-chart-box">
+      <h3>CTR TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-ctr-tab1"></div>
+    </div>
+  </div>
   <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab1" onclick="toggleFilterRow('tab1')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab1" onclick="toggleColGroup('tab1','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab1" onclick="toggleColGroup('tab1','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab1" onclick="toggleColGroup('tab1','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
@@ -399,7 +412,17 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
       <label class="ov-phase-chip" data-platform="google"><input type="checkbox" value="google" onchange="onCreativePlatformChange('tab2', this)">Google</label>
     </div>
   </div>
-  <div class="scorecard-group"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab2"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab2"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab2"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div>
+  <div class="scorecard-group" id="scorecard-group-tab2"><button type="button" class="scorecard-toggle-btn" onclick="toggleScorecardGroup('tab2')">지표 접기/펼치기 <span class="scorecard-toggle-caret" id="scorecard-toggle-caret-tab2">▾</span></button><div class="scorecard-group-body" id="scorecard-group-body-tab2"><div class="scorecard-label">기본 지표</div><div class="scorecard" id="scorecard-delivery-tab2"><div class="score-cell"><div class="score-label">노출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">클릭</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CTR</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">CPC</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">광고비</div><div class="score-value">-</div></div></div><div class="scorecard-label">매체 기준 전환</div><div class="scorecard" id="scorecard-tab2"><div class="score-cell"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div><div class="scorecard-label">믹스패널 기준 전환</div><div class="scorecard scorecard-mp" id="scorecard-mp-tab2"><div class="score-cell score-cell-mp"><div class="score-label">장바구니담기</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">회원가입</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">가입율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환CPA</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">구매전환율</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">매출</div><div class="score-value">-</div></div><div class="score-cell score-cell-mp"><div class="score-label">ROAS</div><div class="score-value">-</div></div></div></div></div>
+  <div class="ov-chart-row" style="margin: 16px 0;">
+    <div class="ov-chart-box">
+      <h3>구매전환율(믹스패널) TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-cvr-tab2"></div>
+    </div>
+    <div class="ov-chart-box">
+      <h3>CTR TOP5 (누적 광고비 5만원 이상 소재만)</h3>
+      <div class="ov-top5-list" id="top5-ctr-tab2"></div>
+    </div>
+  </div>
   <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-tab2" onclick="toggleFilterRow('tab2')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-tab2" onclick="toggleColGroup('tab2','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-tab2" onclick="toggleColGroup('tab2','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-tab2" onclick="toggleColGroup('tab2','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
   <div class="table-scroll">
   <table class="creative-table">
@@ -858,30 +881,15 @@ function computeCreativeAgg(rows) {
   });
 }
 
-function findCreativeImage(name) {
-  const tabIds = overviewSelectedTabIds();
-  for (let i = 0; i < tabIds.length; i++) {
-    const img = (TABS[tabIds[i]].images || {})[name];
-    if (img) return img;
-  }
-  return null;
-}
-
-function findCreativeImageFull(name) {
-  const tabIds = overviewSelectedTabIds();
-  for (let i = 0; i < tabIds.length; i++) {
-    const img = (TABS[tabIds[i]].imagesFull || {})[name];
-    if (img) return img;
-  }
-  return null;
-}
-
-function renderTop5List(containerId, items) {
+function renderTop5List(tabId, containerId, items) {
   const container = document.getElementById(containerId);
+  if (!container) return;
   if (!items.length) { container.innerHTML = '<div class="ov-placeholder">조건에 맞는 소재가 없습니다(누적 광고비 5만원 이상)</div>'; return; }
+  const images = TABS[tabId].images || {};
+  const imagesFull = TABS[tabId].imagesFull || {};
   container.innerHTML = items.map(function(it, i) {
-    const img = findCreativeImage(it.name);
-    const fullImg = findCreativeImageFull(it.name) || img;
+    const img = images[it.name];
+    const fullImg = imagesFull[it.name] || img;
     const thumb = img ? '<img class="ov-top5-thumb" src="' + img + '" data-full="' + escapeHtml(fullImg) + '" alt="">' : '<div class="ov-top5-thumb-empty"></div>';
     return '<div class="ov-top5-row">' +
       '<div class="ov-top5-idx">' + (i + 1) + '</div>' +
@@ -899,6 +907,14 @@ function renderTop5List(containerId, items) {
       '</div>' +
       '</div>';
   }).join('');
+}
+
+function refreshTop5(tabId) {
+  const agg = computeCreativeAgg(tabFilteredRawRows(tabId)).filter(function(c) { return c.sp >= CREATIVE_MIN_SPEND; });
+  const cvrTop = agg.slice().sort(function(a, b) { return b.mpurrate - a.mpurrate; }).slice(0, 5);
+  const ctrTop = agg.slice().sort(function(a, b) { return b.ctr - a.ctr; }).slice(0, 5);
+  renderTop5List(tabId, 'top5-cvr-' + tabId, cvrTop);
+  renderTop5List(tabId, 'top5-ctr-' + tabId, ctrTop);
 }
 
 const PHASE_BUDGET = 10000000; // 매체 전체(합산) 선택 시 기준 — 차수별 고정 예산 가정(1,000만원)
@@ -992,12 +1008,6 @@ function refreshOverviewAll() {
   renderGroupedMetricChart('ov-cmp-mpur', campaigns, 'mpur', fmtInt);
   renderGroupedMetricChart('ov-cmp-mpv', campaigns, 'mpv', fmtWonNoUnit);
   renderGroupedMetricChart('ov-cmp-mroas', campaigns, 'mroas', fmtRoas);
-
-  const creativeAgg = computeCreativeAgg(rows).filter(function(c) { return c.sp >= CREATIVE_MIN_SPEND; });
-  const cvrTop = creativeAgg.slice().sort(function(a, b) { return b.mpurrate - a.mpurrate; }).slice(0, 5);
-  const ctrTop = creativeAgg.slice().sort(function(a, b) { return b.ctr - a.ctr; }).slice(0, 5);
-  renderTop5List('ov-cvr-top', cvrTop);
-  renderTop5List('ov-ctr-top', ctrTop);
 
   updateOverviewBudgetCells();
 }
@@ -1372,6 +1382,13 @@ function onRegionButtonClick(tabId, region) {
   });
 }
 
+function toggleScorecardGroup(tabId) {
+  const body = document.getElementById('scorecard-group-body-' + tabId);
+  const caret = document.getElementById('scorecard-toggle-caret-' + tabId);
+  const collapsed = body.classList.toggle('collapsed');
+  caret.textContent = collapsed ? '▸' : '▾';
+}
+
 function toggleFilterRow(tabId) {
   const row = document.querySelector('#thead-' + tabId + ' .filter-row');
   const btn = document.getElementById('filter-toggle-' + tabId);
@@ -1687,15 +1704,19 @@ function regionListRowHtml(tabId, r, imageUri) {
     '</tr>';
 }
 
+function tabFilteredRawRows(tabId) {
+  const inRange = rowsInDateRange(tabId);
+  const pred = campaignPredicate(tabId);
+  const pfPred = platformPredicate(tabId);
+  return inRange.filter(r => pred(r.c) && pfPred(r.pf || 'meta'));
+}
+
 function aggregate(tabId) {
   // 믹스패널 값(mcart/mreg/mpur/mpv)은 출처와 무관하게 항상 각 소재 행에
   // 이미 들어있다(엑셀 출처는 시트에서 그대로, 라이브 출처는 build_report.py의
   // join_mixpanel_into_rows()가 서버에서 미리 합쳐둠) — 그래서 여기서는 cart처럼
   // 그냥 더하기만 하면 된다. 별도 조인 단계가 필요 없다.
-  const inRange = rowsInDateRange(tabId);
-  const pred = campaignPredicate(tabId);
-  const pfPred = platformPredicate(tabId);
-  const rows = inRange.filter(r => pred(r.c) && pfPred(r.pf || 'meta'));
+  const rows = tabFilteredRawRows(tabId);
   const grouped = {};
   rows.forEach(r => {
     if (!grouped[r.n]) grouped[r.n] = {
@@ -1807,6 +1828,7 @@ function refresh(tabId) {
   updateSortHeaders(tabId);
   updateFilterBadges(tabId);
   applyFilters(tabId);
+  if (!data.isRegionTab) refreshTop5(tabId);
 }
 
 function rowMatchesColFilters(tabId, d) {

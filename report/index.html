@@ -221,6 +221,22 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
         <div class="ov-legend" id="ov-daily-b-legend"></div>
       </div>
     </div>
+    
+    <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-ov-daily" onclick="toggleFilterRow('ov-daily')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-ov-daily" onclick="toggleColGroup('ov-daily','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-ov-daily" onclick="toggleColGroup('ov-daily','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-ov-daily" onclick="toggleColGroup('ov-daily','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
+    <div class="table-scroll">
+    <table class="creative-table">
+      
+    <colgroup><col data-group="id" style="width:90px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"></colgroup>
+    <thead id="thead-ov-daily">
+      <tr class="group-header-row"><th class="group-th group-th-id">구분</th><th colspan="5" class="group-th">매체 주요지표</th><th colspan="9" class="group-th">매체 전환지표</th><th colspan="9" class="group-th mp-col-bg">믹스패널 전환지표</th></tr>
+      <tr><th class="">일자</th><th class="">노출</th><th class="">클릭</th><th class="">CTR</th><th class="">CPC</th><th class="">광고비</th><th class="">장바구니담기</th><th class="">회원가입</th><th class="">가입CPA</th><th class="">가입율</th><th class="">구매전환</th><th class="">구매전환CPA</th><th class="">구매전환율</th><th class="">매출</th><th class="">ROAS</th><th class="mp-col-bg">장바구니담기</th><th class="mp-col-bg">회원가입</th><th class="mp-col-bg">가입CPA</th><th class="mp-col-bg">가입율</th><th class="mp-col-bg">구매전환</th><th class="mp-col-bg">구매전환CPA</th><th class="mp-col-bg">구매전환율</th><th class="mp-col-bg">매출</th><th class="mp-col-bg">ROAS</th></tr>
+      <tr class="filter-row">
+        <th><button type="button" class="af-btn" id="af-btn-d-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','d')">필터<span class="af-badge" data-key="d"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-imp-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','imp')">필터<span class="af-badge" data-key="imp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-clk-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','clk')">필터<span class="af-badge" data-key="clk"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-ctr-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','ctr')">필터<span class="af-badge" data-key="ctr"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cpc-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','cpc')">필터<span class="af-badge" data-key="cpc"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-sp-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','sp')">필터<span class="af-badge" data-key="sp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cart-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','cart')">필터<span class="af-badge" data-key="cart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-reg-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','reg')">필터<span class="af-badge" data-key="reg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regcpa-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','regcpa')">필터<span class="af-badge" data-key="regcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regrate-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','regrate')">필터<span class="af-badge" data-key="regrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pur-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','pur')">필터<span class="af-badge" data-key="pur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purcpa-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','purcpa')">필터<span class="af-badge" data-key="purcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purrate-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','purrate')">필터<span class="af-badge" data-key="purrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pv-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','pv')">필터<span class="af-badge" data-key="pv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-roas-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','roas')">필터<span class="af-badge" data-key="roas"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mcart-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mcart')">필터<span class="af-badge" data-key="mcart"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mreg-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mreg')">필터<span class="af-badge" data-key="mreg"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mregcpa-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mregcpa')">필터<span class="af-badge" data-key="mregcpa"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mregrate-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mregrate')">필터<span class="af-badge" data-key="mregrate"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpur-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mpur')">필터<span class="af-badge" data-key="mpur"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpurcpa-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mpurcpa')">필터<span class="af-badge" data-key="mpurcpa"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpurrate-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mpurrate')">필터<span class="af-badge" data-key="mpurrate"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpv-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mpv')">필터<span class="af-badge" data-key="mpv"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mroas-ov-daily" onclick="toggleFilterPanel(event,'ov-daily','mroas')">필터<span class="af-badge" data-key="mroas"></span> ▾</button></th>
+      </tr>
+    </thead>
+      <tbody id="tbody-ov-daily"><tr><td colspan="24" class="empty-note">불러오는 중...</td></tr></tbody>
+    </table>
+    </div>
   </div>
   <div class="ov-section">
     <h2>주차별 성과 (월~일 기준)</h2>
@@ -235,6 +251,22 @@ table.creative-table { width: 100%; border-collapse: separate; border-spacing: 0
         <div id="ov-weekly-b"></div>
         <div class="ov-legend" id="ov-weekly-b-legend"></div>
       </div>
+    </div>
+    
+    <div class="table-toolbar"><button type="button" class="toolbar-btn" id="filter-toggle-ov-weekly" onclick="toggleFilterRow('ov-weekly')">필터 행 숨기기</button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-delivery-ov-weekly" onclick="toggleColGroup('ov-weekly','delivery')">매체 주요지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mediaConv-ov-weekly" onclick="toggleColGroup('ov-weekly','mediaConv')">매체 전환지표 <span data-group-caret>▾</span></button><button type="button" class="toolbar-btn group-toggle-btn" id="grouptoggle-mpConv-ov-weekly" onclick="toggleColGroup('ov-weekly','mpConv')">믹스패널 전환지표 <span data-group-caret>▾</span></button></div>
+    <div class="table-scroll">
+    <table class="creative-table">
+      
+    <colgroup><col data-group="id" style="width:90px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="delivery" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mediaConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"><col data-group="mpConv" style="width:74px"></colgroup>
+    <thead id="thead-ov-weekly">
+      <tr class="group-header-row"><th class="group-th group-th-id">구분</th><th colspan="5" class="group-th">매체 주요지표</th><th colspan="9" class="group-th">매체 전환지표</th><th colspan="9" class="group-th mp-col-bg">믹스패널 전환지표</th></tr>
+      <tr><th class="">주차</th><th class="">노출</th><th class="">클릭</th><th class="">CTR</th><th class="">CPC</th><th class="">광고비</th><th class="">장바구니담기</th><th class="">회원가입</th><th class="">가입CPA</th><th class="">가입율</th><th class="">구매전환</th><th class="">구매전환CPA</th><th class="">구매전환율</th><th class="">매출</th><th class="">ROAS</th><th class="mp-col-bg">장바구니담기</th><th class="mp-col-bg">회원가입</th><th class="mp-col-bg">가입CPA</th><th class="mp-col-bg">가입율</th><th class="mp-col-bg">구매전환</th><th class="mp-col-bg">구매전환CPA</th><th class="mp-col-bg">구매전환율</th><th class="mp-col-bg">매출</th><th class="mp-col-bg">ROAS</th></tr>
+      <tr class="filter-row">
+        <th><button type="button" class="af-btn" id="af-btn-d-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','d')">필터<span class="af-badge" data-key="d"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-imp-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','imp')">필터<span class="af-badge" data-key="imp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-clk-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','clk')">필터<span class="af-badge" data-key="clk"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-ctr-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','ctr')">필터<span class="af-badge" data-key="ctr"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cpc-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','cpc')">필터<span class="af-badge" data-key="cpc"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-sp-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','sp')">필터<span class="af-badge" data-key="sp"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-cart-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','cart')">필터<span class="af-badge" data-key="cart"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-reg-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','reg')">필터<span class="af-badge" data-key="reg"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regcpa-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','regcpa')">필터<span class="af-badge" data-key="regcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-regrate-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','regrate')">필터<span class="af-badge" data-key="regrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pur-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','pur')">필터<span class="af-badge" data-key="pur"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purcpa-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','purcpa')">필터<span class="af-badge" data-key="purcpa"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-purrate-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','purrate')">필터<span class="af-badge" data-key="purrate"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-pv-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','pv')">필터<span class="af-badge" data-key="pv"></span> ▾</button></th><th><button type="button" class="af-btn" id="af-btn-roas-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','roas')">필터<span class="af-badge" data-key="roas"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mcart-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mcart')">필터<span class="af-badge" data-key="mcart"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mreg-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mreg')">필터<span class="af-badge" data-key="mreg"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mregcpa-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mregcpa')">필터<span class="af-badge" data-key="mregcpa"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mregrate-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mregrate')">필터<span class="af-badge" data-key="mregrate"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpur-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mpur')">필터<span class="af-badge" data-key="mpur"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpurcpa-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mpurcpa')">필터<span class="af-badge" data-key="mpurcpa"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpurrate-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mpurrate')">필터<span class="af-badge" data-key="mpurrate"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mpv-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mpv')">필터<span class="af-badge" data-key="mpv"></span> ▾</button></th><th class="mp-col-bg"><button type="button" class="af-btn" id="af-btn-mroas-ov-weekly" onclick="toggleFilterPanel(event,'ov-weekly','mroas')">필터<span class="af-badge" data-key="mroas"></span> ▾</button></th>
+      </tr>
+    </thead>
+      <tbody id="tbody-ov-weekly"><tr><td colspan="24" class="empty-note">불러오는 중...</td></tr></tbody>
+    </table>
     </div>
   </div>
   <div class="ov-section">
@@ -545,16 +577,51 @@ function computeOverviewTotals(rows) {
   return totals;
 }
 
+function newAgg() {
+  return { imp: 0, clk: 0, sp: 0, cart: 0, reg: 0, pur: 0, pv: 0, mcart: 0, mreg: 0, mpur: 0, mpv: 0 };
+}
+
+function addRowIntoAgg(g, r) {
+  g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.cart += (r.cart || 0); g.reg += r.reg; g.pur += r.pur; g.pv += (r.pv || 0);
+  g.mcart += (r.mcart || 0); g.mreg += (r.mreg || 0); g.mpur += (r.mpur || 0); g.mpv += (r.mpv || 0);
+}
+
+// aggregate()의 소재별 파생값 계산과 동일한 공식 — 데일리/주차별 표에서도 재사용(그룹 기준만 다름)
+function deriveRowMetrics(g) {
+  return {
+    imp: g.imp, clk: g.clk,
+    ctr: g.imp ? (g.clk / g.imp * 100) : 0,
+    cpc: g.clk ? (g.sp / g.clk) : 0,
+    sp: g.sp,
+    cart: g.cart,
+    reg: g.reg,
+    regcpa: g.reg ? (g.sp / g.reg) : 0,
+    regrate: g.clk ? (g.reg / g.clk * 100) : 0,
+    pur: g.pur,
+    purcpa: g.pur ? (g.sp / g.pur) : 0,
+    purrate: g.clk ? (g.pur / g.clk * 100) : 0,
+    pv: g.pv,
+    roas: g.sp ? (g.pv / g.sp) : 0,
+    mcart: g.mcart,
+    mreg: g.mreg,
+    mregcpa: g.mreg ? (g.sp / g.mreg) : 0,
+    mregrate: g.clk ? (g.mreg / g.clk * 100) : 0,
+    mpur: g.mpur,
+    mpurcpa: g.mpur ? (g.sp / g.mpur) : 0,
+    mpurrate: g.clk ? (g.mpur / g.clk * 100) : 0,
+    mpv: g.mpv,
+    mroas: g.sp ? (g.mpv / g.sp) : 0,
+  };
+}
+
 function computeDailyRows(rows) {
   const byDate = {};
   rows.forEach(function(r) {
-    if (!byDate[r.d]) byDate[r.d] = { d: r.d, d2: r.d, imp: 0, clk: 0, sp: 0, pur: 0 };
-    const g = byDate[r.d];
-    g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.pur += r.pur;
+    if (!byDate[r.d]) byDate[r.d] = newAgg();
+    addRowIntoAgg(byDate[r.d], r);
   });
   return Object.keys(byDate).sort().map(function(d) {
-    const g = byDate[d];
-    return { d: d, d2: d, sp: g.sp, clk: g.clk, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0 };
+    return Object.assign({ d: d, d2: d }, deriveRowMetrics(byDate[d]));
   });
 }
 
@@ -569,16 +636,11 @@ function computeWeeklyRows(rows) {
   const byWeek = {};
   rows.forEach(function(r) {
     const wk = weekStart(r.d);
-    if (!byWeek[wk]) byWeek[wk] = { d: wk, imp: 0, clk: 0, sp: 0, pur: 0 };
-    const g = byWeek[wk];
-    g.imp += r.imp; g.clk += r.clk; g.sp += r.sp; g.pur += r.pur;
+    if (!byWeek[wk]) byWeek[wk] = newAgg();
+    addRowIntoAgg(byWeek[wk], r);
   });
   return Object.keys(byWeek).sort().map(function(wk) {
-    const g = byWeek[wk];
-    return {
-      d: wk, d2: fmtDate(addDays(new Date(wk + 'T00:00:00'), 6)),
-      sp: g.sp, clk: g.clk, ctr: g.imp ? g.clk / g.imp * 100 : 0, purrate: g.clk ? g.pur / g.clk * 100 : 0,
-    };
+    return Object.assign({ d: wk, d2: fmtDate(addDays(new Date(wk + 'T00:00:00'), 6)) }, deriveRowMetrics(byWeek[wk]));
   });
 }
 
@@ -874,9 +936,11 @@ function refreshOverviewAll() {
   const daily = computeDailyRows(rows);
   renderComboChart('ov-daily-a', daily, COMBO_SPEC_A);
   renderComboChart('ov-daily-b', daily, COMBO_SPEC_B);
+  renderOvTable('ov-daily', daily);
   const weekly = computeWeeklyRows(rows);
   renderComboChart('ov-weekly-a', weekly, COMBO_SPEC_A);
   renderComboChart('ov-weekly-b', weekly, COMBO_SPEC_B);
+  renderOvTable('ov-weekly', weekly);
 
   const campaigns = computeCampaignAgg(rows);
   renderCampaignLegend('ov-campaign-legend', campaigns);
@@ -1233,6 +1297,10 @@ function getColFilterState(tabId, key) {
 function setColFilter(tabId, key, filterObj) {
   if (!COL_FILTERS[tabId]) COL_FILTERS[tabId] = {};
   COL_FILTERS[tabId][key] = filterObj;
+  if (tabId === 'ov-daily' || tabId === 'ov-weekly') {
+    applyOvTableFilters(tabId);
+    return;
+  }
   if (key === 'campaign' || key === 'region' || key === 'platform') {
     // 캠페인/지역 필터는 집계 이전 단계(일자별 원본 행)에 적용돼야 소재별 합계가 정확함 — 전체 재집계
     // (지역은 특히, 국가를 2개 이상 선택하면 소재명 기준으로 합산해야 하므로 반드시 재집계 필요)
@@ -1403,6 +1471,55 @@ function updateFilterBadges(tabId) {
     const f = (COL_FILTERS[tabId] || {})[key];
     badge.textContent = (f && f.type !== 'all') ? ' ●' : '';
   });
+}
+
+function ovTableRowHtml(tabId, r) {
+  const metrics = JSON.stringify(r).replace(/"/g, '&quot;');
+  const idCell = tabId === 'ov-weekly' ? dateRangeLabel(r) : r.d;
+  return '<tr class="ov-table-row" data-tab="' + tabId + '" data-metrics="' + metrics + '">' +
+    '<td>' + escapeHtml(idCell) + '</td>' +
+    '<td class="num">' + fmtInt(r.imp) + '</td>' +
+    '<td class="num">' + fmtInt(r.clk) + '</td>' +
+    '<td class="num">' + fmtPct(r.ctr) + '</td>' +
+    '<td class="num">' + fmtWon(r.cpc) + '</td>' +
+    '<td class="num">' + fmtWon(r.sp) + '</td>' +
+    '<td class="num">' + fmtInt(r.cart) + '</td>' +
+    '<td class="num">' + fmtInt(r.reg) + '</td>' +
+    '<td class="num">' + fmtWon(r.regcpa) + '</td>' +
+    '<td class="num">' + fmtPct(r.regrate) + '</td>' +
+    '<td class="num">' + fmtInt(r.pur) + '</td>' +
+    '<td class="num">' + fmtWon(r.purcpa) + '</td>' +
+    '<td class="num">' + fmtPct(r.purrate) + '</td>' +
+    '<td class="num">' + fmtWon(r.pv) + '</td>' +
+    '<td class="num">' + fmtRoas(r.roas) + '</td>' +
+    '<td class="num">' + fmtInt(r.mcart) + '</td>' +
+    '<td class="num">' + fmtInt(r.mreg) + '</td>' +
+    '<td class="num">' + fmtWon(r.mregcpa) + '</td>' +
+    '<td class="num">' + fmtPct(r.mregrate) + '</td>' +
+    '<td class="num">' + fmtInt(r.mpur) + '</td>' +
+    '<td class="num">' + fmtWon(r.mpurcpa) + '</td>' +
+    '<td class="num">' + fmtPct(r.mpurrate) + '</td>' +
+    '<td class="num">' + fmtWon(r.mpv) + '</td>' +
+    '<td class="num">' + fmtRoas(r.mroas) + '</td>' +
+    '</tr>';
+}
+
+function applyOvTableFilters(tabId) {
+  document.querySelectorAll('.ov-table-row[data-tab="' + tabId + '"]').forEach(row => {
+    const d = JSON.parse(row.dataset.metrics.replace(/&quot;/g, '"'));
+    row.style.display = rowMatchesColFilters(tabId, d) ? '' : 'none';
+  });
+  updateFilterBadges(tabId);
+}
+
+function renderOvTable(tabId, rows) {
+  LAST_ROWS[tabId] = rows;
+  const tbody = document.getElementById('tbody-' + tabId);
+  if (!tbody) return;
+  tbody.innerHTML = rows.length
+    ? rows.map(r => ovTableRowHtml(tabId, r)).join('')
+    : '<tr><td colspan="24" class="empty-note">선택한 기간에 데이터가 없습니다.</td></tr>';
+  applyOvTableFilters(tabId);
 }
 
 function campaignPredicate(tabId) {
